@@ -1,0 +1,134 @@
+
+.operation-container {
+	width: 120px;
+}
+
+.operation-btn {
+	/* width: 75px;
+	height: 55px; */
+	line-height: 1.42857143;
+	display: inline-block;
+	cursor: pointer;
+	margin-bottom: 10px;
+	padding: 16px;
+	color: #fff;
+	font-size: 14px;
+	font-weight: normal;
+	text-align: center;
+	vertical-align: middle;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 5px;
+	box-shadow: 2px 2px 4px rgba(0,0,0,.30);
+	white-space: nowrap;
+	touch-action: manipulation;
+	user-select: none;
+	-ms-touch-action: manipulation;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+}
+
+.operation-btn div {
+	color: #fff;
+	font-size: 12px;
+	font-weight: normal;
+}
+
+.operation-btn img {
+	width: 30px;
+}
+
+.btn-building {
+	background-color: #3ca2e0;
+	border-color: #2698dd;
+}
+
+.btn-businessDistrict {
+	background-color: #d53e3a;
+	border-color: #c22d29;
+}
+
+.btn-travel {
+	background-color: #3c8df2;
+	border-color: #3ca2e0;
+}
+
+.btn-schoolDistrict {
+	background-color: #f0ad4e;
+	border-color: #eea236;
+}
+
+.btn-street {
+	background-color: #5582f6;
+	border-color: #5582f6;
+}
+
+.btn-community {
+	background-color: #3ecafe;
+	border-color: #3ecafe;
+}
+
+/**
+ *
+ */
+.panel-container {
+	/*z-index: 19991016;*/
+	-webkit-animation-name: layer-bounceIn;
+	animation-name: layer-bounceIn;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation-duration: .3s;
+	animation-duration: .3s;
+	-webkit-overflow-scrolling: touch;
+	margin: 0;
+	padding: 0;
+	background-color: #fff;
+	-webkit-background-clip: content;
+	box-shadow: 1px 1px 50px rgba(0, 0, 0, .3);
+	position: fixed;
+	_position: absolute;
+	pointer-events: auto;
+	border-radius: 5px;
+}
+
+.treeBox {
+	position: fixed;
+	min-width: 230px;
+	top: 20px;
+	left: 135px;
+	display: none;
+	background: #fff;
+	overflow: hidden;
+	border-radius: 5px;
+	box-shadow: 1px 1px 3px #ccc;
+}
+.treeBoxtitleBox {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	background-color: #F8F8F8;
+	height: 40px;
+	padding: 0 12px;
+	border-bottom: 1px solid #eee;
+}
+
+.carousel-inner>.item>a>img, .carousel-inner>.item>img, .img-responsive, .thumbnail a>img, .thumbnail>img {
+	display: block!important;
+    width: 100%!important;
+    height: 300px!important;
+}
+
+
+.bigemap-tooltip-bottom:before {
+	margin-top: -10px!important;
+}
+
+.bigemap-container img.bigemap-marker-icon {
+	margin-left: -12px;
+    margin-top: -41px;
+    width: 25px;
+    height: 41px;
+    transform: translate3d(661px, 250px, 0px);
+    z-index: 250
+}

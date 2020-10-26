@@ -1,0 +1,253 @@
+.detail-content{
+	position: absolute;
+	top: 42px;
+    right: 12px;
+	font-size: 12px;
+	box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
+	background-color: white;
+	z-index: 5;
+	border-radius: 5px;
+}
+.detail-content-title .detail-title{
+	background-repeat: no-repeat;
+    background-position: left center;
+    height: 35px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 12px;
+    border-bottom: 1px solid #eee;
+}
+.detail-content-title-text {
+	font-size: 16px;
+    font-weight: 500;
+}
+
+.pictureBox {
+	width: 100%;
+	height: 100%;
+	position: fixed;
+	background-color: rgba(0, 0, 0, 0.8);
+	top: 0;
+	left: 0;
+	z-index: 6;
+	display: none;
+}
+.pictureContent {
+	position: fixed;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	/* width: 340px; */
+	height: 500px;
+}
+.pictureShow {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.pictureBox  .glyphicon {
+	font-size: 24px;
+	color: #fff;
+	position: fixed;
+	right: 10px;
+	top: 10px;
+}
+.detail-title .glyphicon {
+	font-size: 16px;
+}
+.glyphicon {
+	cursor: pointer;
+}
+.picturePanel {
+	width: 100%;
+	height: 100%;
+	position: relative;
+}
+.showInfo {
+	display: flex;
+	padding: 5px;
+}
+.showInfoLeft {
+	width: 190px;
+	height: 250px;
+	overflow: hidden;
+	cursor: pointer;
+}
+.showInfoLeftimg img{
+	width: 190px;
+	height: 250px;
+	float: left;
+}
+.showInfoLeftimg {
+	width: 380px;
+	height: 250px;
+	animation: switch 3s ease-in-out infinite;
+}
+@keyframes switch {
+	0%, 40% {
+		margin-left: 0;
+	}
+	/* 35%, 60% {
+		margin-left: 0;
+	} */
+	50%, 100% {
+		margin-left: -190px;
+	}
+}
+
+.showInfoRight {
+	padding-top: 12px;
+	width: 460px;
+}
+.new-detail-head {
+    height: 22px;
+    line-height: 22px;
+    width: 205px;
+    margin-left: 10px;
+	display: inline-block;
+}
+
+.new-detail-head .new-detail-label {
+    width: 90px;
+    height: 100%;
+    background: #f5f8fa;
+    color: #666666;
+    text-align: right;
+    display: inline-block;
+	vertical-align: top;
+}
+.new-detail-head .new-detail-field {
+    width: 82px;
+    height: 100%;
+    margin-left: 10px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+	white-space: nowrap;
+}
+
+.pulspic{
+	position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+}
+
+.businessshowInfo {
+	display: flex;
+	padding: 5px;
+}
+.businessshowInfoLeftimg {
+	width: 120px;
+	height: 150px;
+}
+
+.businessshowInfoLeftimg img {
+	width: 100%;
+	height: 150px;
+	object-fit: cover;
+	cursor: pointer;
+}
+.businesssshowInfoRight {
+	display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+.businessname,
+.businessaddress {
+	padding: 15px 15px;
+	display: flex;
+	align-items: center;
+	width: 220px;
+}
+.businessname span,
+.businessaddress span {
+	width: 130px;
+    display: inline-block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.time {
+	border-top: 1px solid #eee;
+	padding: 12px;
+	max-width: 400px;
+}
+.timeborder h3 {
+	margin: 0;
+	margin-bottom: 12px;
+	font-size: 14px;
+}
+.business1detail {
+	width: 100%;
+    max-height: 500px;
+    overflow: auto;
+}
+.business1detail img{
+	width: 100%;
+	object-fit: contain;
+}
+.timeborder {
+	width: 100%;
+	/* width: 162px;
+    height: 64px;
+    background-image: url(../img/area.png);
+    background-repeat: no-repeat;
+	background-position: center; */
+	/* display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center; */
+}
+.jj {
+	border-top: 1px solid #eee;
+	margin-top: 12px;
+	width: 100%;
+	padding: 12px;
+	max-height: 500px;
+	overflow: auto;
+}
+.jj img {
+	width: 100%;
+	object-fit: contain;
+
+}
+.jj h3 {
+	margin: 0;
+    margin-bottom: 12px;
+}
+.controlBox {
+	position: fixed;
+	right: 20px;
+	bottom: 40px;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	z-index: 2;
+}
+.add,
+.sub,
+.grade  {
+	text-align: center;
+	height: 30px;
+	line-height: 30px;
+	width: 60px;
+	cursor: pointer;
+	background: #fff;
+}
+.add {
+	border-bottom: 1px solid #eee;
+}
+.sub {
+	border-top: 1px solid #eee;
+}
+.add:hover {
+	background: #eee;
+}
+
+.sub:hover {
+	background: #eee;
+}
