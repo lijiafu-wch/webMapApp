@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-11-01 22:44:58
+ * @LastEditTime: 2020-11-08 14:56:37
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -30,7 +30,8 @@
 	//  .on('mouseover',function (e) {
 	//      // e.layer.setStyle({color: 'white',fillColor:all[Math.floor(Math.random()*all.length)],weight:1,fillOpacity:0.9});
 	//      e.layer.setStyle({color: 'white',fillColor:'#f7acbc',weight:1,fillOpacity:0.3});
-	//  })
+    //  })
+
 	//  .on('mouseout',function (e) {
 	//      // e.layer.setStyle({color: 'white',fillColor:all[Math.floor(Math.random()*all.length)],weight:1,fillOpacity:0.9});
 	//      e.layer.setStyle({color: 'white',fillColor:'#ff0000',weight:1,fillOpacity:0.3});
@@ -274,8 +275,11 @@ $('.businessshowInfoLeftimg').on('click', function (e) {
 function getShInfo (val) {
     const obj = JSON.parse(val)
     if (obj.latitude) {
-        map.flyTo([obj.latitude, obj.longitude], 15);
-
+        if (map.getZoom() >= 15) {
+            map.flyTo([obj.latitude, obj.longitude], map.getZoom());
+        } else {
+            map.flyTo([obj.latitude, obj.longitude], 15);
+        }
     }
     $.ajax({
         //请求方式
@@ -392,7 +396,12 @@ function certificateList (arr) {
 
 function getSqInfo (val) {
     const obj = JSON.parse(val)
-    map.flyTo([obj.latitude, obj.longitude], 15);
+    if (map.getZoom() >= 15) {
+        map.flyTo([obj.latitude, obj.longitude], map.getZoom());
+    } else {
+        map.flyTo([obj.latitude, obj.longitude], 15);
+    }
+    // map.flyTo([obj.latitude, obj.longitude], 15);
     $.ajax({
         //请求方式
         type : "GET",
@@ -434,14 +443,15 @@ $('.add').on('click', function () {
     map.zoomIn();
 console.log(map.getZoom());
 $('.grade').html(map.getZoom() + '级')
-
-
 })
 
 $('.sub').on('click', function () {
     map.zoomOut();
-console.log(map.getZoom());
-$('.grade').html(map.getZoom() + '级')
+    console.log(map.getZoom());
+    $('.grade').html(map.getZoom() + '级')
+})
 
-
+map.on('zoomend',function (e) {
+    console.log(map.getZoom());
+    $('.grade').html(map.getZoom() + '级')
 })

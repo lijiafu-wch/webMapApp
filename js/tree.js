@@ -128,14 +128,24 @@ $('.tree').on('click', '.buildingname', function (e) {
 				}
 			});
 			layer.bindTooltip(obj.name || obj.roundName, {permanent: false, opacity: 1, direction: 'bottom'}).openTooltip();
-			map.flyTo([obj.latitude, obj.longitude], 15);
+			// map.flyTo([obj.latitude, obj.longitude], 15);
+			if (map.getZoom() >= 15) {
+				map.flyTo([obj.latitude, obj.longitude], map.getZoom());
+			} else {
+				map.flyTo([obj.latitude, obj.longitude], 15);
+			}
 			layerlist.push(layer)
 			// if (obj.type === 'bui') {
 			// 	getShInfo(str)
 			// } else {
 			// 	getSqInfo(str)
 			// }
-			map.flyTo([obj.latitude, obj.longitude], 15);
+			if (map.getZoom() >= 15) {
+				map.flyTo([obj.latitude, obj.longitude], map.getZoom());
+			} else {
+				map.flyTo([obj.latitude, obj.longitude], 15);
+			}
+			// map.flyTo([obj.latitude, obj.longitude], 15);
 		}
 })
 
@@ -167,7 +177,12 @@ $('.tree').on('click', '.check', function (e) {
 					}
 				})
 				layer.bindTooltip(obj.name || obj.roundName, {permanent: false, opacity: 1, direction: 'bottom'}).openTooltip();
-				map.flyTo([obj.latitude, obj.longitude], 15);
+				// map.flyTo([obj.latitude, obj.longitude], 15);
+				if (map.getZoom() >= 15) {
+					map.flyTo([obj.latitude, obj.longitude], map.getZoom());
+				} else {
+					map.flyTo([obj.latitude, obj.longitude], 15);
+				}
 				layerlist.push(layer)
 		}
 	} else {
