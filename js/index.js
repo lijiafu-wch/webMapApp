@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-10-26 13:39:07
+ * @LastEditTime: 2020-11-01 22:44:58
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -71,29 +71,30 @@ var icon
 // 商户主体
 $('.btn-building').on('click', function () {
         $('.detail-content').hide()
-        if (layerlist.length) {
-            layerlist.forEach(element => {
-                element.remove()
-            });
-        }
+        $('.treeSearch').show()
+        building()
+})
+// 生产商家树前两级
+function building () {
+    if (layerlist.length) {
+        layerlist.forEach(element => {
+            element.remove()
+        });
+    }
     $.ajax({
         //请求方式
-        type : "POST",
+        type : "GET",
         //请求的媒体类型
         contentType: "application/json;charset=UTF-8",
         //请求地址
-        url : "/front/merchant/list",
+        url : "/front/merchant/district",
         //数据，json字符串
         // data : JSON.stringify(list),
         //请求成功
         success : function(result) {
             if (result.code === 200) {
                 titleSet('商户主体')
-                arr = []
-                getMerchantTree(result.data)
-                var arrs = []
-                $(".tree").tree(result.data, arrs);
-                // console.log($.getCheckedNodes())
+                $('.tree').html(treecreat(result.data.root, true));
             } else {
                 alert(result.msg || '未获取到信息，请稍后再试！')
             }
@@ -104,17 +105,21 @@ $('.btn-building').on('click', function () {
             console.log(e.responseText);
         }
     });
-})
+}
 
-// 便民商圈
-$('.btn-businessDistrict').on('click', function () {
-        $('.detail-content').hide()
-        if (layerlist.length) {
-            layerlist.forEach(element => {
-                element.remove()
-            });
-        }
-        
+// $('.seachRest').on('click', function (e) {
+//     if ($('.treeBoxtitle').html() === '商户主体') {
+//      buildin()
+//     } else if ($('.treeBoxtitle').html() === '便民商圈') {
+//         businessDistrict()
+//     }
+// })
+function businessDistrict () {
+    if (layerlist.length) {
+        layerlist.forEach(element => {
+            element.remove()
+        });
+    }
     $.ajax({
         //请求方式
         type : "POST",
@@ -128,11 +133,7 @@ $('.btn-businessDistrict').on('click', function () {
         success : function(result) {
             if (result.code === 200) {
                 titleSet('便民商圈')
-                arr = []
-                getBusinessTree(result.data)
-                var arrs = []
-                $(".tree").tree(result.data, arrs);
-                // console.log($.getCheckedNodes())
+                $('.tree').html(treebusinesscreat(result.data, true));
             } else {
                 alert(result.msg || '未获取到信息，请稍后再试！')
             }
@@ -143,13 +144,19 @@ $('.btn-businessDistrict').on('click', function () {
             console.log(e.responseText);
         }
     });
+}
+// 便民商圈
+$('.btn-businessDistrict').on('click', function () {
+        $('.detail-content').hide()
+        $('.treeSearch').hide()
+        businessDistrict()
 })
 // 设置左侧标题并显示
 function titleSet (text) {
     if (text === '商户主体') {
-        icon = 'http://map.dlzs.gov.cn:8080/zs_gis/PGIS/zs/images/markers/building_marker_normal.png'
+        icon = './img/building_marker_normal.png'
     } else if (text === '便民商圈') {
-        icon = 'http://map.dlzs.gov.cn:8080/zs_gis/PGIS/zs/images/markers/business_marker_normal.png'
+        icon = './img/business_marker_normal.png'
     }
     $('.treeBox').show(1)
     $('.treeBoxtitle').html(text)
@@ -161,13 +168,6 @@ function getMerchantTree (data) {
     for (var i = 0; i < data.length; i++) {
         data[i].checked = false
         data[i].nocheck = false
-        // if (data[i].latitude) {
-        //     const layer = BM.marker([data[i].latitude,data[i].longitude],{icon:BM.icon({iconUrl:'http://map.dlzs.gov.cn:8080/zs_gis/PGIS/zs/images/markers/building_marker_normal.png'}), alt: JSON.stringify(data[i])}).addTo(map)
-        //     .on('click', function(e) { 
-        //         getShInfo(e.target.options.alt)
-        //      })
-        //      layerlist.push(layer)
-        // }
         if (data[i].countyName) {
             data[i].name = data[i].countyName
         }
@@ -226,7 +226,6 @@ $('.showInfoLeftimg').on('click', function (e) {
             <img src="${ $(this).attr('pic2') }" alt="...">
           </div>
         </div>
-        <!-- Controls -->
         <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
           <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
           <span class="sr-only">Previous</span>
@@ -274,7 +273,10 @@ $('.businessshowInfoLeftimg').on('click', function (e) {
 })
 function getShInfo (val) {
     const obj = JSON.parse(val)
-    map.flyTo([obj.latitude, obj.longitude], 15);
+    if (obj.latitude) {
+        map.flyTo([obj.latitude, obj.longitude], 15);
+
+    }
     $.ajax({
         //请求方式
         type : "GET",
@@ -306,6 +308,10 @@ function getShInfo (val) {
                     <span class="new-detail-field">${ data.countyName || '' + data.streetName || '' + data.communityName || '' }</span>
                 </div>
                 <div class="new-detail-head">
+                    <span class="new-detail-label">同一社会信用代码:</span>
+                    <span class="new-detail-field">${ data.creditCode || '' }</span>
+                </div>
+                <div class="new-detail-head">
                     <span class="new-detail-label">联系电话：</span>
                     <span class="new-detail-field">${ data.outPhone || ''  }</span>
                 </div>
@@ -320,10 +326,6 @@ function getShInfo (val) {
                 <div class="new-detail-head">
                     <span class="new-detail-label">二级分类：</span>
                     <span class="new-detail-field">${ data.secondBusinessCategoryName || ''  }</span>
-                </div>
-                <div class="new-detail-head">
-                    <span class="new-detail-label">三级分类：</span>
-                    <span class="new-detail-field">${ data.threeBusinessCategoryName || ''  }</span>
                 </div>
                 <div class="new-detail-head">
                     <span class="new-detail-label">用工人数：</span>
@@ -349,13 +351,16 @@ function getShInfo (val) {
                     <span class="new-detail-label">经营范围：</span>
                     <span class="new-detail-field">${ data.operationRange || ''  }</span>
                 </div>
+                <div class="new-detail-head">
+                    <span class="new-detail-label">证书：</span>
+                    <span class="new-detail-field" >${ certificateList(data.certificateList)  }</span>
+                </div>
                 </div>
                 <div class="jj">
                     <h3>企业简介</h3>
                     <div>${ data.detail || '暂无简介'  }</div>
                 </div>
                 `
-                $('.search_ul').hide();
                 $('.showInfoRight').html(str)
             } else {
                 alert(result.msg)
@@ -370,6 +375,19 @@ function getShInfo (val) {
     });
 }
 
+function certificateList (arr) {
+    // arr = [{name: '食品经营许可证'}, {name: '特种设备人员登记证'}, {name: '医疗器械经营许可证'}]
+    if (arr.length < 1) {
+        return ''
+    } else {
+        let str = ''
+        arr.forEach(element => {
+         str += '<div>' + element.cerName + '</div>'
+        });
+        return str
+
+    }
+}
 // businessshowInfoLeftimgsrc
 
 function getSqInfo (val) {
@@ -381,7 +399,7 @@ function getSqInfo (val) {
         //请求的媒体类型
         contentType: "application/json;charset=UTF-8",
         //请求地址
-        url : "/front/round/" + obj.id,
+        url : "/front/round/" + obj.roundId || obj.id,
         //数据，json字符串
         // data : JSON.stringify(list),
         //请求成功
@@ -395,7 +413,6 @@ function getSqInfo (val) {
 						<div class="businessaddress">地址： <span>${ data.address || '' }</span></div>`)
                 $('.business1detail').html(data.detal || '暂无介绍')
                 $('#business1').show()
-                $('.search_ul').hide();
                 $('.detail-content-title-text').text(obj.name)
             } else {
                 alert(result.msg)
@@ -409,52 +426,8 @@ function getSqInfo (val) {
         }
     });
 }
-$('#top_input').on('change', function () {
-    let timer = $(this).data('timer');
-    clearTimeout(timer);
-    let val = $(this).val();
-    if(!val) return
-    timer = setTimeout(function () {
-        let center = map.getCenter();
-        $.get('https://restapi.amap.com/v3/assistant/inputtips?output=json&location=' + ([center.lng, center.lat].join(',')) + '&keywords=七台河' + val + '&key=f290e69e458e618aead61401ee06b37e', function (data) {
-            let result = [], item;
-            if (data.tips) {
-                for (let i = 0; i < data.tips.length; i++) {
-                    item = data.tips[i];
-                    var itemtitle = item.name + item.district + item.address;
-                    typeof item.location == 'string' && item.location ?
-                        result.push('<li>' +
-                            '<a  data-operation="location" data-location="' + item.location + '" data-title="' + itemtitle + '" href="javascript:void(0);"><i class="fa fa-map-marker"></i>&nbsp; ' + item.name + '</a></li>') : true;
-                }
-            }
-            if (!result.length) result.push('<li>没有结果</li>');
-            $('.search_ul').html(result.join('')).show();
-        });
-    }, 300);
-    $(this).data('timer', timer);
-});
-$('#map').on('click', function () {
-    $('.search_ul').hide();
-});
-$("body").on("click", "[data-operation]", function () {
-    switch ($(this).data('operation')) {
-        case 'location':
-            let location = $(this).data('location');
-            // window.parent.postMessage({
-            //     result : location
-            // },'*');
-            // let title = $(this).data("title")
-            $('#top_input').val( $(this).data("title"))
-            location = location.split(',');
-            $('.search_ul').hide();
-            if (location.length == 2) {
-                location = [parseFloat(location['1']), parseFloat(location['0'])];
-                map.flyTo(location, 17);
-            }
-            break;
-    }
-    console.log('dd', map.getPanes());
-})
+
+
 console.log(map.getZoom());
 $('.grade').html(map.getZoom() + '级')
 $('.add').on('click', function () {

@@ -1,4 +1,4 @@
-
+/* 
 .tree {
     width: 100%;
     height: 600px;
@@ -64,10 +64,81 @@
     background: url(../img/checked.png) no-repeat;
     background-size: cover;
 }
-input{
+.tree input{
     display: none;
 }
 .isShow{
     width: 14px;
     margin-right: 5px;
+} */
+
+.tree {
+    width: 100%;
+    height: 600px;
+    padding: 12px 0;
+    display: block;
+    margin: auto;
+    overflow-y: scroll;
+    overflow-x: scroll;
+    position: relative;
+    background-color: #eee;
+    padding-right: 10px;
+    font-size: 14px;
+    color: #444;
+    border-top: 1px dashed #eee;
+}
+
+.tree ul li {
+    list-style-type: none;
+    margin-left: -10px;
+    position: relative;
+}
+
+.tree ul {
+    width: 100%;
+    list-style-type: none;
+    margin-top: 0px;
+    position: relative;
+    padding-inline-start: 24px;
+}
+.unfold {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 13px;
+    text-align: center;
+    background-color: #fafafa;
+    border: 1px solid #e8e8e8;
+    cursor: pointer;
+}
+.besunfold {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    line-height: 13px;
+    text-align: center;
+    background-color: #fafafa;
+    border: 1px solid #e8e8e8;
+    cursor: pointer;
+}
+.tree ul li {
+    margin: 4px 0;
+}
+.tree ul li img {
+    width: 18px;
+}
+.iconImg {
+    margin: 0 4px;
+}
+
+.flexLi {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.besflexLi {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
 }
