@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-11-08 14:56:37
+ * @LastEditTime: 2020-11-09 22:01:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -309,7 +309,7 @@ function getShInfo (val) {
                 </div>
                 <div class="new-detail-head">
                     <span class="new-detail-label">地址：</span>
-                    <span class="new-detail-field">${ data.countyName || '' + data.streetName || '' + data.communityName || '' }</span>
+                    <span class="new-detail-field">${ data.address || '' }</span>
                 </div>
                 <div class="new-detail-head">
                     <span class="new-detail-label">同一社会信用代码:</span>

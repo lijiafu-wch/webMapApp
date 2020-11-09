@@ -222,12 +222,12 @@ function getlevel2 (obj, dom) {
 					// if (type === false) {
 					if (element.type === 1) {
 						if (element.address) {
-							element.address = element.address.trim()
+							element.address = null
 						}
 						str += '<li data-info=' + JSON.stringify(element) + '><div>' + element.name + '<i>(' + element.num + ')</i> <span class="unfold">+</span></div></li>'
 					} else {
 						if (element.address) {
-							element.address = element.address.trim()
+							element.address = null
 						}
 						let color
 						if (element.specialStatus === 'A') {
@@ -273,7 +273,7 @@ function getlevel3 (obj, dom) {
 				   console.log(element.specialStatus);
 				   let color
 				   if (element.address) {
-					element.address = element.address.trim()
+					element.address = null
 					}
 				   if (element.specialStatus === 'A') {
 					color = 'green'
