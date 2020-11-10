@@ -308,11 +308,15 @@ function getShInfo (val) {
                     <span class="new-detail-field">${ data.name || '' }</span>
                 </div>
                 <div class="new-detail-head">
+                    <span class="new-detail-label">法人代表：</span>
+                    <span class="new-detail-field">${ data.legalPerson || '' }</span>
+                </div>
+                <div class="new-detail-head">
                     <span class="new-detail-label">地址：</span>
                     <span class="new-detail-field">${ data.address || '' }</span>
                 </div>
                 <div class="new-detail-head">
-                    <span class="new-detail-label">同一社会信用代码:</span>
+                    <span class="new-detail-label">统一社会信用代码:</span>
                     <span class="new-detail-field">${ data.creditCode || '' }</span>
                 </div>
                 <div class="new-detail-head">
