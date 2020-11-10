@@ -114,20 +114,27 @@ $('.tree').on('click', '.buildingname', function (e) {
 			
 			layer = BM.marker([obj.latitude,obj.longitude],{icon:BM.icon({iconUrl: icon }), alt: str }).addTo(map)
 			.on('click', function(e) { 
+				layerlist.forEach((element, i) => {
+					if (element._tooltip) {
+						element.unbindTooltip()
+					}
+				});
+
 				if (obj.type === 'bui') {
 					getShInfo(e.target.options.alt)
 				} else {
 					console.log(e.target.options.alt);
 					getSqInfo(e.target.options.alt)
 				}
+				console.log(e);
+				this.bindTooltip(obj.name || obj.roundName, {permanent: true, opacity: 1, direction: 'bottom'}).openTooltip();
 			})
 			layerlist.forEach((element, i) => {
-				console.log(element, element._tooltip)
 				if (element._tooltip) {
 					element.unbindTooltip()
 				}
 			});
-			layer.bindTooltip(obj.name || obj.roundName, {permanent: false, opacity: 1, direction: 'bottom'}).openTooltip();
+			layer.bindTooltip(obj.name || obj.roundName, {permanent: true, opacity: 1, direction: 'bottom'}).openTooltip();
 			// map.flyTo([obj.latitude, obj.longitude], 15);
 			if (map.getZoom() >= 15) {
 				map.flyTo([obj.latitude, obj.longitude], map.getZoom());
