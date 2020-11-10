@@ -69,19 +69,19 @@
 	padding: 5px;
 }
 .showInfoLeft {
-	width: 190px;
-	height: 250px;
+	width: 150px;
+    height: 184px;
 	overflow: hidden;
 	cursor: pointer;
 }
 .showInfoLeftimg img{
-	width: 190px;
-	height: 250px;
+	width: 100%;
+	height: 100%;
 	float: left;
 }
 .showInfoLeftimg {
-	width: 380px;
-	height: 250px;
+	width: 100%;
+	height: 100%;
 	/* animation: switch 3s ease-in-out infinite; */
 }
 @keyframes switch {
@@ -98,7 +98,7 @@
 
 .showInfoRight {
 	padding-top: 12px;
-	width: 460px;
+	width: 330px;
 	flex-direction: column;
     display: flex;
 }
@@ -256,6 +256,8 @@
 	padding: 12px 24px;
 	justify-content: space-between;
 	background-color: #F8F8F8;
+	padding-bottom: 5px;
+	border-bottom: 1px dashed #eee;
 }
 
 .treeSearch input {
