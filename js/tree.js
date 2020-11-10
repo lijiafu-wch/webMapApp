@@ -31,13 +31,14 @@ function treebusinesscreat(params, type) {
 		let icon
 		if (type === false) {
 			console.log(element);
-			let color
-			if (element.specialStatus === 'A') {
-			color = 'green'
-			} else if (element.specialStatus === 'B') {
-			color = '#F4A460'
-			} else if (element.specialStatus === 'C' || element.specialStatus === 'c') {
-			color = '#FF4500'
+			if (element.operationStatus  === 'a') {
+				color = '#92D050'
+			} else if (element.operationStatus  === 'b') {
+				color = '#9CC3E6'
+			} else if (element.operationStatus  === 'c') {
+				color = '#FFC000'
+			} else if (element.operationStatus  === 'd' ) {
+				color = '#FF0000'
 			}
 			icon = './img/building_marker_normal.png'
 			str += '<li data-info=' + JSON.stringify({ id: element.id, name: element.name, latitude: element.latitude, longitude: element.longitude, type: 'bui' }) + ' class="besflexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
@@ -237,12 +238,14 @@ function getlevel2 (obj, dom) {
 							element.address = null
 						}
 						let color
-						if (element.specialStatus === 'A') {
-							color = 'green'
-						} else if (element.specialStatus === 'B') {
-							color = '#F4A460'
-						} else if (element.specialStatus === 'C' || element.specialStatus === 'c' || element.specialStatus === 'c') {
-							color = '#FF4500'
+						if (element.operationStatus  === 'a') {
+							color = '#92D050'
+						} else if (element.operationStatus  === 'b') {
+							color = '#9CC3E6'
+						} else if (element.operationStatus  === 'c') {
+							color = '#FFC000'
+						} else if (element.operationStatus  === 'd' ) {
+							color = '#FF0000'
 						}
 						str += '<li data-info=' + JSON.stringify({...element, type: 'bui'}) + ' class="flexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
 					}
@@ -282,13 +285,15 @@ function getlevel3 (obj, dom) {
 				   if (element.address) {
 					element.address = null
 					}
-				   if (element.specialStatus === 'A') {
-					color = 'green'
-				   } else if (element.specialStatus === 'B') {
-					color = '#F4A460'
-				   } else if (element.specialStatus === 'C' || element.specialStatus === 'c') {
-					color = '#FF4500'
-				   }
+					if (element.operationStatus  === 'a') {
+						color = '#92D050'
+					} else if (element.operationStatus  === 'b') {
+						color = '#9CC3E6'
+					} else if (element.operationStatus  === 'c') {
+						color = '#FFC000'
+					} else if (element.operationStatus  === 'd' ) {
+						color = '#FF0000'
+					}
 					str += '<li data-info=' + JSON.stringify({...element, type: 'bui'}) + ' class="flexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
 				});
 				str += '</ul>'
@@ -334,12 +339,14 @@ $('.seachQueqy').on('click', function () {
 			result.data.forEach(element => {
 				let icon = './img/building_marker_normal.png'
 				let color
-				if (element.specialStatus === 'A') {
-				color = 'green'
-				} else if (element.specialStatus === 'B') {
-				color = '#F4A460'
-				} else if (element.specialStatus === 'C' || element.specialStatus === 'c') {
-				color = '#FF4500'
+				if (element.operationStatus  === 'a') {
+					color = '#92D050'
+				} else if (element.operationStatus  === 'b') {
+					color = '#9CC3E6'
+				} else if (element.operationStatus  === 'c') {
+					color = '#FFC000'
+				} else if (element.operationStatus  === 'd' ) {
+					color = '#FF0000'
 				}
 				str += '<li data-info=' + JSON.stringify({ id: element.id, name: element.name, latitude: element.latitude, longitude: element.longitude, type: 'bui' }) + ' class="besflexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
 				str += '</li>';
