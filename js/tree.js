@@ -31,6 +31,7 @@ function treebusinesscreat(params, type) {
 		let icon
 		if (type === false) {
 			console.log(element);
+			let color
 			if (element.operationStatus  === 'a') {
 				color = '#92D050'
 			} else if (element.operationStatus  === 'b') {
@@ -39,6 +40,8 @@ function treebusinesscreat(params, type) {
 				color = '#FFC000'
 			} else if (element.operationStatus  === 'd' ) {
 				color = '#FF0000'
+			}else {
+				color = '#444'
 			}
 			icon = './img/building_marker_normal.png'
 			str += '<li data-info=' + JSON.stringify({ id: element.id, name: element.name, latitude: element.latitude, longitude: element.longitude, type: 'bui' }) + ' class="besflexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
@@ -347,6 +350,8 @@ $('.seachQueqy').on('click', function () {
 					color = '#FFC000'
 				} else if (element.operationStatus  === 'd' ) {
 					color = '#FF0000'
+				} else {
+					color = '#444'
 				}
 				str += '<li data-info=' + JSON.stringify({ id: element.id, name: element.name, latitude: element.latitude, longitude: element.longitude, type: 'bui' }) + ' class="besflexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
 				str += '</li>';
