@@ -250,6 +250,10 @@
 	background: #eee;
 }
 
+.storeLink {
+	cursor: pointer;
+}
+
 .treeSearch {
 	display: flex;
 	align-items: center;

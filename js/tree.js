@@ -21,16 +21,24 @@ function treecreat(params, type) {
 	str += '</ul>'
 	return str
 }
-function treebusinesscreat(params, type) {
-	if (type === true) {
+function treebusinesscreat(params, type, icontypeform) {
+	console.log(icontypeform);
+	if (type === 1) {
 		var str = '<ul>'
 	} else {
 		var str = '<ul class="ul" style="display: none">'
 	}
 	params.forEach(element => {
 		let icon
-		if (type === false) {
-			console.log(element);
+		let icontype
+		if (type === 1){
+			str += '<li data-info=' + JSON.stringify({code: element.code, name: element.name, level: element.level}) + '><div>' + element.name + '<i>(' + element.num + ')</i> <span class="unfold">+</span></div>'
+		} 
+		if (type === 2) {
+			icon = './img/business_marker_normal.png'
+			str += '<li data-info=' + JSON.stringify({ roundId: element.roundId, roundName: element.roundName, latitude: element.latitude, longitude: element.longitude, type: 'bus' }) + ' class="besflexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname">' + element.roundName + '</span><i>(' + element.num + ')</i><span class="besunfold">+</span></li>'
+		} 
+		if (type === 3) {
 			let color
 			if (element.operationStatus  === 'a') {
 				color = '#92D050'
@@ -43,15 +51,25 @@ function treebusinesscreat(params, type) {
 			}else {
 				color = '#444'
 			}
-			icon = './img/building_marker_normal.png'
-			str += '<li data-info=' + JSON.stringify({ id: element.id, name: element.name, latitude: element.latitude, longitude: element.longitude, type: 'bui' }) + ' class="besflexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
-		} else {
-			icon = './img/business_marker_normal.png'
-			str += '<li data-info=' + JSON.stringify({ roundId: element.roundId, roundName: element.roundName, latitude: element.latitude, longitude: element.longitude, type: 'bus' }) + ' class="besflexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname">' + element.roundName + '</span><i>(' + element.num + ')</i><span class="besunfold">+</span></li>'
+			console.log(3333);
+			if (icontypeform === 'wd') {
+				icon = './img/wangdianicon.png'
+				icontype = 'wd'
+			} else if (icontypeform === 'ys') {
+				icon = './img/yunshuicon.png'
+				icontype = 'ys'
+			} else {
+				icon = './img/building_marker_normal.png'
+				icontype = 'bui'
+			}
+			str += '<li data-info=' + JSON.stringify({ id: element.id, name: element.name, latitude: element.latitude, longitude: element.longitude, type: icontype }) + ' class="besflexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
+		} 
+		if (element.merchantList && element.merchantList != '') {
+			str += treebusinesscreat(element.merchantList, 3, icontypeform);
 		}
-	if (element.merchantList && element.merchantList != '') {
-		str += treebusinesscreat(element.merchantList, false);
-	}
+		if (element.businessRounds && element.businessRounds != '') {
+			str += treebusinesscreat(element.businessRounds, 2, icontypeform);
+		}
 		str += '</li>';
 	});
 	str += '</ul>'
@@ -104,16 +122,20 @@ $('.tree').on('click', '.buildingname', function (e) {
 		$(this).parent().find('.check').attr('data-check', 'true')
 		$(this).parent().find('.check').attr('src', './img/checked.png')
 		let obj = JSON.parse(str)
-		if (obj.type === 'bui') {
-			getShInfo(str)
-		} else {
+		if (obj.type === 'bus') {
 			getSqInfo(str)
+		} else {
+			getShInfo(str)
 		}
 		if (obj.latitude) {
 			if (obj.type === 'bui') {
 				icon = './img/building_marker_normal.png'
-			} else {
+			} else if (obj.type === 'bus') {
 				icon = './img/business_marker_normal.png'
+			} else if (obj.type === 'wd') {
+				icon = './img/wangdianicon.png'
+			} else if (obj.type === 'ys') {
+				icon = './img/yunshuicon.png'
 			}
 			
 			layer = BM.marker([obj.latitude,obj.longitude],{icon:BM.icon({iconUrl: icon }), alt: str }).addTo(map)
@@ -124,11 +146,11 @@ $('.tree').on('click', '.buildingname', function (e) {
 					}
 				});
 
-				if (obj.type === 'bui') {
-					getShInfo(e.target.options.alt)
-				} else {
+				if (obj.type === 'bus') {
 					console.log(e.target.options.alt);
 					getSqInfo(e.target.options.alt)
+				} else {
+					getShInfo(e.target.options.alt)
 				}
 				console.log(e);
 				this.bindTooltip(obj.name || obj.roundName, {permanent: true, opacity: 1, direction: 'bottom'}).openTooltip();
@@ -169,8 +191,12 @@ $('.tree').on('click', '.check', function (e) {
 		let obj = JSON.parse(str)
 		if (obj.type === 'bui') {
 			icon = './img/building_marker_normal.png'
-		} else {
+		} else if (obj.type === 'bus') {
 			icon = './img/business_marker_normal.png'
+		} else if (obj.type === 'wd') {
+			icon = './img/wangdianicon.png'
+		} else if (obj.type === 'ys') {
+			icon = './img/yunshuicon.png'
 		}
 		if (obj.latitude) {
 			layerlist.forEach((element, i) => {
@@ -181,10 +207,10 @@ $('.tree').on('click', '.check', function (e) {
 			});
 				layer = BM.marker([obj.latitude,obj.longitude],{icon:BM.icon({iconUrl: icon }), alt: str }).addTo(map)
 				.on('click', function(e) { 
-					if (obj.type === 'bui') {
-						getShInfo(e.target.options.alt)
-					} else {
+					if (obj.type === 'bus') {
 						getSqInfo(e.target.options.alt)
+					} else {
+						getShInfo(e.target.options.alt)
 					}
 				})
 				layer.bindTooltip(obj.name || obj.roundName, {permanent: false, opacity: 1, direction: 'bottom'}).openTooltip();

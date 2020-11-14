@@ -4,35 +4,38 @@
 }
 
 .operation-btn {
-	/* width: 75px;
-	height: 55px; */
-	line-height: 1.42857143;
-	display: inline-block;
-	cursor: pointer;
-	margin-bottom: 10px;
-	padding: 16px;
-	color: #fff;
-	font-size: 14px;
-	font-weight: normal;
-	text-align: center;
-	vertical-align: middle;
-	background-image: none;
-	border: 1px solid transparent;
-	border-radius: 5px;
-	box-shadow: 2px 2px 4px rgba(0,0,0,.30);
-	white-space: nowrap;
-	touch-action: manipulation;
-	user-select: none;
-	-ms-touch-action: manipulation;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
+	display: flex;
+    align-items: center;
+    flex-direction: column;
+    cursor: pointer;
+    justify-content: center;
+    margin-bottom: 10px;
+    /* padding: 16px; */
+    width: 96px;
+    height: 72px;
+    color: #fff;
+    font-size: 14px;
+    font-weight: normal;
+    text-align: center;
+    vertical-align: middle;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 5px;
+    box-shadow: 2px 2px 4px rgba(0,0,0,.30);
+    white-space: nowrap;
+    touch-action: manipulation;
+    user-select: none;
+    -ms-touch-action: manipulation;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none
 }
 
 .operation-btn div {
 	color: #fff;
 	font-size: 12px;
 	font-weight: normal;
+	margin-top: 3px;
 }
 
 .operation-btn img {
@@ -45,8 +48,17 @@
 }
 
 .btn-businessDistrict {
-	background-color: #d53e3a;
-	border-color: #c22d29;
+	background-color: #5582f6;
+    border-color: #5582f6;
+}
+.btn-wangdian {
+	background-color: #fb0808;
+    border-color: #fb0808;
+}
+
+.btn-yunshu {
+	background-color: #00d607;
+    border-color: #00d607;
 }
 
 .btn-travel {

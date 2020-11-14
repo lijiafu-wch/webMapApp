@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-11-09 22:01:26
+ * @LastEditTime: 2020-11-14 21:06:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -108,13 +108,6 @@ function building () {
     });
 }
 
-// $('.seachRest').on('click', function (e) {
-//     if ($('.treeBoxtitle').html() === '商户主体') {
-//      buildin()
-//     } else if ($('.treeBoxtitle').html() === '便民商圈') {
-//         businessDistrict()
-//     }
-// })
 function businessDistrict () {
     if (layerlist.length) {
         layerlist.forEach(element => {
@@ -127,14 +120,14 @@ function businessDistrict () {
         //请求的媒体类型
         contentType: "application/json;charset=UTF-8",
         //请求地址
-        url : "/front/business/list",
+        url : "/front/business/tree",
         //数据，json字符串
         // data : JSON.stringify(list),
         //请求成功
         success : function(result) {
             if (result.code === 200) {
                 titleSet('便民商圈')
-                $('.tree').html(treebusinesscreat(result.data, true));
+                $('.tree').html(treebusinesscreat(result.data, 1));
             } else {
                 alert(result.msg || '未获取到信息，请稍后再试！')
             }
@@ -146,12 +139,96 @@ function businessDistrict () {
         }
     });
 }
+
+function yunshuDistrict () {
+    if (layerlist.length) {
+        layerlist.forEach(element => {
+            element.remove()
+        });
+    }
+    $.ajax({
+        //请求方式
+        type : "POST",
+        //请求的媒体类型
+        contentType: "application/json;charset=UTF-8",
+        //请求地址
+        url : "front/car/list",
+        //数据，json字符串
+        // data : JSON.stringify(list),
+        //请求成功
+        success : function(result) {
+            if (result.code === 200) {
+                titleSet('运输户')
+                $('.tree').html(treebusinesscreat(result.data, 1, 'ys'));
+                console.log(result);
+            } else {
+                alert(result.msg || '未获取到信息，请稍后再试！')
+            }
+        },
+        //请求失败，包含具体的错误信息
+        error : function(e){
+            console.log(e.status);
+            console.log(e.responseText);
+        }
+    });
+}
+
+// 运输车
+$('.btn-yunshu').on('click', function () {
+    $('.detail-content').hide()
+    $('.treeSearch').hide()
+    yunshuDistrict()
+})
+
 // 便民商圈
 $('.btn-businessDistrict').on('click', function () {
-        $('.detail-content').hide()
-        $('.treeSearch').hide()
-        businessDistrict()
+    $('.detail-content').hide()
+    $('.treeSearch').hide()
+    businessDistrict()
 })
+
+function wangdianDistrict () {
+    if (layerlist.length) {
+        layerlist.forEach(element => {
+            element.remove()
+        });
+    }
+    $.ajax({
+        //请求方式
+        type : "POST",
+        //请求的媒体类型
+        contentType: "application/json;charset=UTF-8",
+        //请求地址
+        url : "front/store/list",
+        //数据，json字符串
+        // data : JSON.stringify(list),
+        //请求成功
+        success : function(result) {
+            if (result.code === 200) {
+                titleSet('网店')
+                console.log(result);
+                $('.tree').html(treebusinesscreat(result.data, 1, 'wd'));
+
+            } else {
+                alert(result.msg || '未获取到信息，请稍后再试！')
+            }
+        },
+        //请求失败，包含具体的错误信息
+        error : function(e){
+            console.log(e.status);
+            console.log(e.responseText);
+        }
+    });
+}
+
+// 便民商圈
+$('.btn-wangdian').on('click', function () {
+    $('.detail-content').hide()
+    $('.treeSearch').hide()
+    wangdianDistrict()
+})
+
+
 // 设置左侧标题并显示
 function titleSet (text) {
     if (text === '商户主体') {
@@ -159,6 +236,7 @@ function titleSet (text) {
     } else if (text === '便民商圈') {
         icon = './img/business_marker_normal.png'
     }
+    $('.tree').html('')
     $('.treeBox').show(1)
     $('.treeBoxtitle').html(text)
 }
@@ -313,7 +391,7 @@ function getShInfo (val) {
                 </div>
                 <div class="new-detail-head">
                     <span class="new-detail-label">地址：</span>
-                    <span class="new-detail-field">${ data.address || '' }</span>
+                    <span class="storeLink new-detail-field">${ data.address || '' }</span>
                 </div>
                 <div class="new-detail-head">
                     <span class="new-detail-label">统一社会信用代码:</span>
@@ -382,6 +460,15 @@ function getShInfo (val) {
         }
     });
 }
+
+$('.showInfoRight').on('click', '.storeLink', function () {
+    if ($('.treeBoxtitle').text() === '网店') {
+        console.log($(this).text());
+        if ($(this).text()) {
+            window.open($(this).text());
+        }
+    }
+})
 
 function certificateList (arr) {
     // arr = [{name: '食品经营许可证'}, {name: '特种设备人员登记证'}, {name: '医疗器械经营许可证'}]
