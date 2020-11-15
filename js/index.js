@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-11-14 21:06:44
+ * @LastEditTime: 2020-11-15 10:12:26
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -67,14 +67,27 @@ $('.btn-community').on('click', function () {
 $('.btn-schoolDistrict').on('click', function () {
     alert(3)
 })
+var operationType;
 var arr
 var icon
 // 商户主体
 $('.btn-building').on('click', function () {
+        operationType = 1
         $('.detail-content').hide()
         $('.treeSearch').show()
+        $('.colorItemTrue').show()
+        $('.colorItemFalse').hide()
         building()
 })
+$('.btn-building1').on('click', function () {
+    operationType = 2
+    $('.detail-content').hide()
+    $('.treeSearch').show()
+    $('.colorItemTrue').hide()
+    $('.colorItemFalse').show()
+    building()
+})
+
 // 生产商家树前两级
 function building () {
     if (layerlist.length) {
@@ -177,6 +190,8 @@ function yunshuDistrict () {
 $('.btn-yunshu').on('click', function () {
     $('.detail-content').hide()
     $('.treeSearch').hide()
+    $('.colorItemTrue').show()
+    $('.colorItemFalse').show()
     yunshuDistrict()
 })
 
@@ -184,6 +199,8 @@ $('.btn-yunshu').on('click', function () {
 $('.btn-businessDistrict').on('click', function () {
     $('.detail-content').hide()
     $('.treeSearch').hide()
+    $('.colorItemTrue').show()
+    $('.colorItemFalse').show()
     businessDistrict()
 })
 
@@ -225,6 +242,8 @@ function wangdianDistrict () {
 $('.btn-wangdian').on('click', function () {
     $('.detail-content').hide()
     $('.treeSearch').hide()
+    $('.colorItemTrue').show()
+    $('.colorItemFalse').show()
     wangdianDistrict()
 })
 
