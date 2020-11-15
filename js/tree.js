@@ -276,7 +276,26 @@ function getlevel2 (obj, dom) {
 						} else if (element.operationStatus  === 'd' ) {
 							color = '#FF0000'
 						}
-						str += '<li data-info=' + JSON.stringify({...element, type: 'bui'}) + ' class="flexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
+						str += '<li data-info=' + JSON.stringify({...element, type: 'bui'}) + ' class="flexLi"><img class="check" data-check="true" src="./img/checked.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
+						if (element.latitude && element.longitude) {
+							layer = BM.marker([element.latitude,element.longitude],{icon:BM.icon({iconUrl: icon }), alt: JSON.stringify({...element, type: 'bui'}) }).addTo(map)
+							.on('click', function(e) { 
+								layerlist.forEach((element, i) => {
+									if (element._tooltip) {
+										element.unbindTooltip()
+									}
+								});
+								getShInfo(e.target.options.alt)
+								this.bindTooltip(element.name || element.roundName, {permanent: true, opacity: 1, direction: 'bottom'}).openTooltip();
+							})
+							layerlist.forEach((element, i) => {
+								if (element._tooltip) {
+									element.unbindTooltip()
+								}
+							});
+							layerlist.push(layer)
+						}
+						
 					}
 				});
 				str += '</ul>'
@@ -323,7 +342,25 @@ function getlevel3 (obj, dom) {
 					} else if (element.operationStatus  === 'd' ) {
 						color = '#FF0000'
 					}
-					str += '<li data-info=' + JSON.stringify({...element, type: 'bui'}) + ' class="flexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
+					str += '<li data-info=' + JSON.stringify({...element, type: 'bui'}) + ' class="flexLi"><img class="check" data-check="true" src="./img/checked.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
+					if (element.latitude && element.longitude) {
+						layer = BM.marker([element.latitude,element.longitude],{icon:BM.icon({iconUrl: icon }), alt: JSON.stringify({...element, type: 'bui'}) }).addTo(map)
+						.on('click', function(e) { 
+							layerlist.forEach((element, i) => {
+								if (element._tooltip) {
+									element.unbindTooltip()
+								}
+							});
+							getShInfo(e.target.options.alt)
+							this.bindTooltip(element.name || element.roundName, {permanent: true, opacity: 1, direction: 'bottom'}).openTooltip();
+						})
+						layerlist.forEach((element, i) => {
+							if (element._tooltip) {
+								element.unbindTooltip()
+							}
+						});
+						layerlist.push(layer)
+					}
 				});
 				str += '</ul>'
 				dom.parent().after(str)
@@ -344,6 +381,11 @@ $('.seachQueqy').on('click', function () {
 		alert('请输入商家名称')
 		return
 	}
+	if (layerlist.length) {
+        layerlist.forEach(element => {
+            element.remove()
+        });
+    }
 	let data ={
 		name: $('.treeSearchInput').val(),
 		operationType: operationType
@@ -380,8 +422,26 @@ $('.seachQueqy').on('click', function () {
 				} else {
 					color = '#444'
 				}
-				str += '<li data-info=' + JSON.stringify({ id: element.id, name: element.name, latitude: element.latitude, longitude: element.longitude, type: 'bui' }) + ' class="besflexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
+				str += '<li data-info=' + JSON.stringify({ id: element.id, name: element.name, latitude: element.latitude, longitude: element.longitude, type: 'bui' }) + ' class="besflexLi"><img class="check" data-check="true" src="./img/checked.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
 				str += '</li>';
+				if (element.latitude && element.longitude) {
+					layer = BM.marker([element.latitude,element.longitude],{icon:BM.icon({iconUrl: icon }), alt: JSON.stringify({...element, type: 'bui'}) }).addTo(map)
+					.on('click', function(e) { 
+						layerlist.forEach((element, i) => {
+							if (element._tooltip) {
+								element.unbindTooltip()
+							}
+						});
+						getShInfo(e.target.options.alt)
+						this.bindTooltip(element.name || element.roundName, {permanent: true, opacity: 1, direction: 'bottom'}).openTooltip();
+					})
+					layerlist.forEach((element, i) => {
+						if (element._tooltip) {
+							element.unbindTooltip()
+						}
+					});
+					layerlist.push(layer)
+				}
 			});
 			str += '</ul>'
 			console.log(str);
@@ -401,5 +461,10 @@ $('.seachQueqy').on('click', function () {
 
 $('.seachRest').on('click', function() {
 	$('.treeSearchInput').val('')
+	if (layerlist.length) {
+        layerlist.forEach(element => {
+            element.remove()
+        });
+    }
 	building()
 })
