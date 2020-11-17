@@ -355,7 +355,7 @@
 .colorItem {
  display: flex;
  align-items: center;
- /* margin-bottom: 3px; */
+ margin-left: 3px;
 }
 .colorBox {
 	width: 10px;

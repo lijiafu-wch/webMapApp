@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-11-17 22:03:34
+ * @LastEditTime: 2020-11-17 22:22:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -72,19 +72,34 @@ var arr
 var icon
 // 商户主体
 $('.btn-building').on('click', function () {
+        $('.colorContent').html(`<div class="colorItem">
+        <span class="colorBox colorBox1"></span>
+        <span class="colorName">正常营业</span>
+    </div>
+    <div class="colorItem">
+        <span class="colorBox colorBox2"></span>
+        <span class="colorName">无经营场所营业</span>
+    </div>
+    <div class="colorItem">
+        <span class="colorBox colorBox3"></span>
+        <span class="colorName">歇业</span>
+    </div>
+    <span class="glyphicon glyphicon-remove" style="margin-left: 5px;font-size: 15px;" onclick="$('.treeBox').hide()" aria-hidden="true"></span>`)
         operationType = 1
         $('.detail-content').hide()
         $('.treeSearch').show()
-        $('.colorItemTrue').show()
-        $('.colorItemFalse').hide()
         building()
 })
 $('.btn-building1').on('click', function () {
+    $('.colorContent').html(`
+<div class="colorItem">
+    <span class="colorBox colorBox4"></span>
+    <span class="colorName">吊销</span>
+</div> 
+<span class="glyphicon glyphicon-remove" style="margin-left: 5px;font-size: 15px;" onclick="$('.treeBox').hide()" aria-hidden="true"></span>`)
     operationType = 2
     $('.detail-content').hide()
     $('.treeSearch').show()
-    $('.colorItemTrue').hide()
-    $('.colorItemFalse').show()
     building()
 })
 
@@ -188,19 +203,41 @@ function yunshuDistrict () {
 
 // 运输车
 $('.btn-yunshu').on('click', function () {
+    $('.colorContent').html(`<div class="colorItem">
+    <span class="colorBox colorBox1"></span>
+    <span class="colorName">正常营业</span>
+</div>
+<div class="colorItem">
+    <span class="colorBox colorBox3"></span>
+    <span class="colorName">歇业</span>
+</div>
+<div class="colorItem">
+    <span class="colorBox colorBox4"></span>
+    <span class="colorName">吊销</span>
+</div> 
+<span class="glyphicon glyphicon-remove" style="margin-left: 5px;font-size: 15px;" onclick="$('.treeBox').hide()" aria-hidden="true"></span>`)
     $('.detail-content').hide()
     $('.treeSearch').hide()
-    $('.colorItemTrue').show()
-    $('.colorItemFalse').show()
     yunshuDistrict()
 })
 
 // 便民商圈
 $('.btn-businessDistrict').on('click', function () {
+    $('.colorContent').html(`<div class="colorItem">
+    <span class="colorBox colorBox1"></span>
+    <span class="colorName">正常营业</span>
+</div>
+<div class="colorItem">
+    <span class="colorBox colorBox2"></span>
+    <span class="colorName">无经营场所营业</span>
+</div>
+<div class="colorItem">
+    <span class="colorBox colorBox3"></span>
+    <span class="colorName">歇业</span>
+</div>
+<span class="glyphicon glyphicon-remove" style="margin-left: 5px;font-size: 15px;" onclick="$('.treeBox').hide()" aria-hidden="true"></span>`)
     $('.detail-content').hide()
     $('.treeSearch').hide()
-    $('.colorItemTrue').show()
-    $('.colorItemFalse').show()
     businessDistrict()
 })
 
@@ -240,10 +277,21 @@ function wangdianDistrict () {
 
 // 便民商圈
 $('.btn-wangdian').on('click', function () {
+    $('.colorContent').html(`<div class="colorItem">
+    <span class="colorBox colorBox1"></span>
+    <span class="colorName">正常营业</span>
+</div>
+<div class="colorItem">
+    <span class="colorBox colorBox3"></span>
+    <span class="colorName">歇业</span>
+</div>
+<div class="colorItem">
+    <span class="colorBox colorBox4"></span>
+    <span class="colorName">吊销</span>
+</div> 
+<span class="glyphicon glyphicon-remove" style="margin-left: 5px;font-size: 15px;" onclick="$('.treeBox').hide()" aria-hidden="true"></span>`)
     $('.detail-content').hide()
     $('.treeSearch').hide()
-    $('.colorItemTrue').show()
-    $('.colorItemFalse').show()
     wangdianDistrict()
 })
 
