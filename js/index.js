@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-11-15 10:12:26
+ * @LastEditTime: 2020-11-17 22:03:34
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -307,7 +307,7 @@ function getBusinessTree (data) {
         }
     }
 }
-$('.showInfoLeftimg').on('click', function (e) {
+$('.showInfoRight').on('click', '.buidImg', function (e) {
     if ($(this).attr('pic1') && $(this).attr('pic2')) {
         const str = `<div id="carousel-example-generic" class="carousel slide pulspic" data-ride="carousel">
         <!-- Indicators -->
@@ -333,7 +333,6 @@ $('.showInfoLeftimg').on('click', function (e) {
           <span class="sr-only">Next</span>
         </a>
     </div>`
-    // http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png
     $('.picturePanel').html(str)
     $('.pictureBox').show(1)
     } else if ($(this).attr('pic1') || $(this).attr('pic2')) {
@@ -392,15 +391,16 @@ function getShInfo (val) {
             if (result.code === 200) {
                console.log(result.data)
                const data = result.data
-               $('.showInfoLeftimg').attr('pic1', data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png')
-               $('.showInfoLeftimg').attr('pic2', data.pictureTwo)
-               $('.showInfoLeftimg').html(`<img src="${ data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" οnerrοr="this.src='http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png'"alt="">
-               <img src="${ data.pictureTwo || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" οnerrοr="this.src='http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png'" alt="">`)
+            //    $('.showInfoLeftimg').attr('pic1', data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png')
+            //    $('.showInfoLeftimg').attr('pic2', data.pictureTwo)
+            //    $('.showInfoLeftimg').html(`<img src="${ data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" οnerrοr="this.src='http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png'"alt="">
+            //    <img src="${ data.pictureTwo || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" οnerrοr="this.src='http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png'" alt="">`)
                $('#business1').hide()
                $('#building').show()
                
                $('.detail-content-title-text').text(obj.name)
-                let str = `<div class="new-detail-head">
+                let str = `
+                <div class="new-detail-head">
                     <span class="new-detail-label">名称:</span>
                     <span class="new-detail-field">${ data.name || '' }</span>
                 </div>
@@ -460,13 +460,24 @@ function getShInfo (val) {
                     <span class="new-detail-label">证书：</span>
                     <span class="new-detail-field" >${ certificateList(data.certificateList)  }</span>
                 </div>
+                <div class="new-detail-head">
+                    <span class="new-detail-label">计量器具：</span>
+                    <span class="new-detail-field" >${ certificateList(data.measureApplianceList)  }</span>
                 </div>
+                <div class="new-detail-head">
+                    <span class="new-detail-label">商标：</span>
+                    <span class="new-detail-field" >${ certificateList(data.brandRegisterList)  }</span>
+                </div>
+                <img class="buidImg" pic2="${ data.pictureTwo || '' }" pic1="${ data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" src="${ data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">
                 <div class="jj">
                     <h3>企业简介</h3>
                     <div>${ data.detail || '暂无简介'  }</div>
                 </div>
                 `
                 $('.showInfoRight').html(str)
+
+                $('.buidImg').attr('pic1', data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png')
+                $('.buidImg').attr('pic2', data.pictureTwo)
             } else {
                 alert(result.msg)
             }
@@ -479,6 +490,11 @@ function getShInfo (val) {
         }
     });
 }
+
+
+$('.showInfoRight').on('click', '.new-detail-field', function () {
+    $(this).css({'white-space': 'initial', 'overflow': 'initial', 'text-overflow': 'initial' })
+})
 
 $('.showInfoRight').on('click', '.storeLink', function () {
     if ($('.treeBoxtitle').text() === '网店') {
@@ -495,8 +511,12 @@ function certificateList (arr) {
         return ''
     } else {
         let str = ''
-        arr.forEach(element => {
-         str += '<div>' + element.cerName + '</div>'
+        arr.forEach(element => { 
+            if (element.flag == true) {
+                str += '<div style="color: red">' + element.cerName + '</div>'
+            } else {
+                str += '<div>' + element.cerName + '</div>'
+            }
         });
         return str
 

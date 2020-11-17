@@ -67,6 +67,8 @@
 .showInfo {
 	display: flex;
 	padding: 5px;
+	height: 300px;
+    overflow: auto;
 }
 .showInfoLeft {
 	width: 150px;
@@ -98,7 +100,7 @@
 
 .showInfoRight {
 	padding-top: 12px;
-	width: 330px;
+	width: 440px;
 	flex-direction: column;
     display: flex;
 }
@@ -122,7 +124,11 @@
 	height: 100%;
 	width: 100%;
     margin-left: 10px;
-    display: inline-block;
+	display: inline-block;
+	white-space: nowrap;
+    overflow: hidden;
+	text-overflow: ellipsis;
+	cursor: pointer;
 }
 
 .pulspic{
@@ -145,7 +151,7 @@
 .businessshowInfoLeftimg img {
 	width: 100%;
 	height: 150px;
-	object-fit: cover;
+	object-fit: contain;
 	cursor: pointer;
 }
 .businesssshowInfoRight {
@@ -204,7 +210,7 @@
 	margin-top: 12px;
 	width: 100%;
 	padding: 12px;
-	max-height: 500px;
+	min-height: 100px;
 	overflow: auto;
 }
 .jj img {
@@ -254,6 +260,11 @@
 	cursor: pointer;
 }
 
+.buidImg {
+	width: 100%;
+    cursor: pointer;
+    object-fit: contain;
+}
 .treeSearch {
 	display: flex;
 	align-items: center;
