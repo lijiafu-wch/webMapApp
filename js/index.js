@@ -92,10 +92,6 @@ $('.btn-building').on('click', function () {
 })
 $('.btn-building1').on('click', function () {
     $('.colorContent').html(`
-<div class="colorItem">
-    <span class="colorBox colorBox4"></span>
-    <span class="colorName">吊销</span>
-</div> 
 <span class="glyphicon glyphicon-remove" style="margin-left: 5px;font-size: 15px;" onclick="$('.treeBox').hide()" aria-hidden="true"></span>`)
     operationType = 2
     $('.detail-content').hide()
@@ -203,7 +199,8 @@ function yunshuDistrict () {
 
 // 运输车
 $('.btn-yunshu').on('click', function () {
-    $('.colorContent').html(`<div class="colorItem">
+    $('.colorContent').html(`
+	<div class="colorItem">
     <span class="colorBox colorBox1"></span>
     <span class="colorName">正常营业</span>
 </div>
