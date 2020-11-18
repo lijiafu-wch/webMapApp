@@ -390,19 +390,30 @@ $('.seachQueqy').on('click', function () {
 		name: $('.treeSearchInput').val(),
 		operationType: operationType
 	}
+	var url
+	if (operationType === 1) {
+		url = "/front/merchant/search"
+	} else if (operationType === 2) {
+		url = "/front/merchant/search"
+	} else if (operationType === 3) {
+		url = "/front/business/search"
+	} else if (operationType === 4) {
+		url = "/front/car/search"
+	} else if (operationType === 5) {
+		url = "/front/store/search"
+	}
 	$.ajax({
         //请求方式
         type : "POST",
         //请求的媒体类型
         // contentType: "application/json;charset=UTF-8",
         //请求地址
-        url : "/front/merchant/search",
+        url: url,
         //数据，json字符串
         data : data,
         //请求成功
         success : function(result) {
             if (result.code === 200) {
-			console.log(result);
 			if (result.data.length < 1) {
 				$('.tree').html('<div style="width: 150px;margin: 0 auto;text-align: center;">暂无内容</div>');
 				return
@@ -465,6 +476,16 @@ $('.seachRest').on('click', function() {
         layerlist.forEach(element => {
             element.remove()
         });
-    }
-	building()
+	}
+	if (operationType === 1) {
+		building(1)
+	} else if (operationType === 2) {
+		building(2)
+	} else if (operationType === 3) {
+		businessDistrict()
+	} else if (operationType === 4) {
+		yunshuDistrict()
+	} else if (operationType === 5) {
+		wangdianDistrict()
+	}
 })

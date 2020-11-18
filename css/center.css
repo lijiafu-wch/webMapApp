@@ -1,7 +1,9 @@
 .detail-content{
 	position: absolute;
 	top: 42px;
-    right: 12px;
+	right: 12px;
+	height: 92%;
+	overflow: auto;
 	font-size: 12px;
 	box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.1);
 	background-color: white;
@@ -20,7 +22,11 @@
 }
 .detail-content-title-text {
 	font-size: 16px;
-    font-weight: 500;
+	font-weight: 500;
+	width: 90%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .pictureBox {
@@ -67,8 +73,6 @@
 .showInfo {
 	display: flex;
 	padding: 5px;
-	height: 300px;
-    overflow: auto;
 }
 .showInfoLeft {
 	width: 150px;
@@ -100,7 +104,7 @@
 
 .showInfoRight {
 	padding-top: 12px;
-	width: 440px;
+	width: 380px;
 	flex-direction: column;
     display: flex;
 }
@@ -210,8 +214,6 @@
 	margin-top: 12px;
 	width: 100%;
 	padding: 12px;
-	min-height: 100px;
-	overflow: auto;
 }
 .jj img {
 	width: 100%;
@@ -260,8 +262,15 @@
 	cursor: pointer;
 }
 
+.buidImgBOX {
+    display: flex;
+    align-items: center;
+	padding: 0 3px;
+    cursor: pointer;
+}
+
 .buidImg {
-	width: 100%;
+	width: 30%;
     cursor: pointer;
     object-fit: contain;
 }

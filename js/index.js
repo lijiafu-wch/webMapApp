@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-11-17 22:22:13
+ * @LastEditTime: 2020-11-18 19:41:43
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -87,24 +87,27 @@ $('.btn-building').on('click', function () {
     <span class="glyphicon glyphicon-remove" style="margin-left: 5px;font-size: 15px;" onclick="$('.treeBox').hide()" aria-hidden="true"></span>`)
         operationType = 1
         $('.detail-content').hide()
-        $('.treeSearch').show()
-        building()
+        building(1)
 })
 $('.btn-building1').on('click', function () {
     $('.colorContent').html(`
-<span class="glyphicon glyphicon-remove" style="margin-left: 5px;font-size: 15px;" onclick="$('.treeBox').hide()" aria-hidden="true"></span>`)
+    <span class="glyphicon glyphicon-remove" style="margin-left: 5px;font-size: 15px;" onclick="$('.treeBox').hide()" aria-hidden="true"></span>`)
     operationType = 2
     $('.detail-content').hide()
-    $('.treeSearch').show()
-    building()
+    building(2)
 })
 
 // 生产商家树前两级
-function building () {
+function building (operationType) {
     if (layerlist.length) {
         layerlist.forEach(element => {
             element.remove()
         });
+    }
+    if (operationType === 2) {
+        titleSet('吊/注销商户')
+    } else {
+        titleSet('商户主体')
     }
     $.ajax({
         //请求方式
@@ -114,11 +117,10 @@ function building () {
         //请求地址
         url : "/front/merchant/district",
         //数据，json字符串
-        // data : JSON.stringify(list),
+        data: {operationType: operationType},
         //请求成功
         success : function(result) {
             if (result.code === 200) {
-                titleSet('商户主体')
                 $('.tree').html(treecreat(result.data.root, true));
             } else {
                 alert(result.msg || '未获取到信息，请稍后再试！')
@@ -199,6 +201,7 @@ function yunshuDistrict () {
 
 // 运输车
 $('.btn-yunshu').on('click', function () {
+    operationType = 4
     $('.colorContent').html(`
 	<div class="colorItem">
     <span class="colorBox colorBox1"></span>
@@ -214,12 +217,12 @@ $('.btn-yunshu').on('click', function () {
 </div> 
 <span class="glyphicon glyphicon-remove" style="margin-left: 5px;font-size: 15px;" onclick="$('.treeBox').hide()" aria-hidden="true"></span>`)
     $('.detail-content').hide()
-    $('.treeSearch').hide()
     yunshuDistrict()
 })
 
 // 便民商圈
 $('.btn-businessDistrict').on('click', function () {
+    operationType = 3
     $('.colorContent').html(`<div class="colorItem">
     <span class="colorBox colorBox1"></span>
     <span class="colorName">正常营业</span>
@@ -234,7 +237,6 @@ $('.btn-businessDistrict').on('click', function () {
 </div>
 <span class="glyphicon glyphicon-remove" style="margin-left: 5px;font-size: 15px;" onclick="$('.treeBox').hide()" aria-hidden="true"></span>`)
     $('.detail-content').hide()
-    $('.treeSearch').hide()
     businessDistrict()
 })
 
@@ -274,6 +276,7 @@ function wangdianDistrict () {
 
 // 便民商圈
 $('.btn-wangdian').on('click', function () {
+    operationType = 5
     $('.colorContent').html(`<div class="colorItem">
     <span class="colorBox colorBox1"></span>
     <span class="colorName">正常营业</span>
@@ -288,7 +291,6 @@ $('.btn-wangdian').on('click', function () {
 </div> 
 <span class="glyphicon glyphicon-remove" style="margin-left: 5px;font-size: 15px;" onclick="$('.treeBox').hide()" aria-hidden="true"></span>`)
     $('.detail-content').hide()
-    $('.treeSearch').hide()
     wangdianDistrict()
 })
 
@@ -352,7 +354,7 @@ function getBusinessTree (data) {
         }
     }
 }
-$('.showInfoRight').on('click', '.buidImg', function (e) {
+$('.showInfoRight').on('click', '.buidImgBOX', function (e) {
     if ($(this).attr('pic1') && $(this).attr('pic2')) {
         const str = `<div id="carousel-example-generic" class="carousel slide pulspic" data-ride="carousel">
         <!-- Indicators -->
@@ -513,7 +515,11 @@ function getShInfo (val) {
                     <span class="new-detail-label">商标：</span>
                     <span class="new-detail-field" >${ certificateList(data.brandRegisterList)  }</span>
                 </div>
-                <img class="buidImg" pic2="${ data.pictureTwo || '' }" pic1="${ data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" src="${ data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">
+                <div class="buidImgBOX" pic2="${ data.pictureTwo || '' }" pic1="${ data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }">
+                    <img class="buidImg"  src="${ data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">
+                    <img class="buidImg"  src="${ data.pictureTwo || '' }" alt="">
+
+                </div>
                 <div class="jj">
                     <h3>企业简介</h3>
                     <div>${ data.detail || '暂无简介'  }</div>
@@ -521,8 +527,8 @@ function getShInfo (val) {
                 `
                 $('.showInfoRight').html(str)
 
-                $('.buidImg').attr('pic1', data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png')
-                $('.buidImg').attr('pic2', data.pictureTwo)
+                // $('.buidImg').attr('pic1', data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png')
+                // $('.buidImg').attr('pic2', data.pictureTwo)
             } else {
                 alert(result.msg)
             }
