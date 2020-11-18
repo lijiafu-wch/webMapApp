@@ -167,7 +167,7 @@
 .businessaddress {
 	padding: 15px 15px;
 	display: flex;
-	align-items: center;
+	/* align-items: center; */
 	width: 220px;
 }
 .businessname span,

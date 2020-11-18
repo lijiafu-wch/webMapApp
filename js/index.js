@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-11-18 19:41:43
+ * @LastEditTime: 2020-11-18 19:52:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -547,6 +547,12 @@ $('.showInfoRight').on('click', '.new-detail-field', function () {
     $(this).css({'white-space': 'initial', 'overflow': 'initial', 'text-overflow': 'initial' })
 })
 
+$('.businesssshowInfoRight').on('click', '.businessnametext', function () {
+    $(this).css({'white-space': 'initial', 'overflow': 'initial', 'text-overflow': 'initial' })
+})
+
+
+
 $('.showInfoRight').on('click', '.storeLink', function () {
     if ($('.treeBoxtitle').text() === '网店') {
         console.log($(this).text());
@@ -599,7 +605,7 @@ function getSqInfo (val) {
                 const data = result.data
                $('.businessshowInfoLeftimg').attr('pic', data.picture || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png')
                 $('.businessshowInfoLeftimg').html(`<img class="businessshowInfoLeftimgsrc" src="${ data.picture || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">`)
-                $('.businesssshowInfoRight').html(`<div class="businessname">商圈名称： <span>${ data.name || '' }</span> </div>
+                $('.businesssshowInfoRight').html(`<div class="businessname">商圈名称： <span class="businessnametext">${ data.name || '' }</span> </div>
 						<div class="businessaddress">地址： <span>${ data.address || '' }</span></div>`)
                 $('.business1detail').html(data.detal || '暂无介绍')
                 $('#business1').show()
