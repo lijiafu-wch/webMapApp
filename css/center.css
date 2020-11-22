@@ -265,12 +265,13 @@
 .buidImgBOX {
     display: flex;
     align-items: center;
-	padding: 0 3px;
-    cursor: pointer;
+	padding: 0 8px;
+	cursor: pointer;
+	justify-content: space-between;
 }
 
 .buidImg {
-	width: 30%;
+	width: 48.5%;
     cursor: pointer;
     object-fit: contain;
 }

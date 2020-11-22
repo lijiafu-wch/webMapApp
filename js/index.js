@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-11-18 19:52:33
+ * @LastEditTime: 2020-11-22 17:41:07
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -516,9 +516,8 @@ function getShInfo (val) {
                     <span class="new-detail-field" >${ certificateList(data.brandRegisterList)  }</span>
                 </div>
                 <div class="buidImgBOX" pic2="${ data.pictureTwo || '' }" pic1="${ data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }">
-                    <img class="buidImg"  src="${ data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">
+                    <img class="buidImg"  src="${ data.pictureOne || 'http://49.232.203.212:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">
                     <img class="buidImg"  src="${ data.pictureTwo || '' }" alt="">
-
                 </div>
                 <div class="jj">
                     <h3>企业简介</h3>

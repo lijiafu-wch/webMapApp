@@ -62,7 +62,7 @@ function treebusinesscreat(params, type, icontypeform) {
 				icon = './img/building_marker_normal.png'
 				icontype = 'bui'
 			}
-			str += '<li data-info=' + JSON.stringify({ id: element.id, name: element.name, latitude: element.latitude, longitude: element.longitude, type: icontype }) + ' class="besflexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
+			str += '<li data-info=' + JSON.stringify({ id: element.id, name: element.name, latitude: element.latitude, longitude: element.longitude, type: icontype }) + ' class="besflexLi"><img class="check" data-check="false" src="./img/check.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span><img class="dressTrue"  src="' + (element.latitude && element.longitude ? './img/dress.png' : '') + '" alt=""></li>'
 		} 
 		if (element.merchantList && element.merchantList != '') {
 			str += treebusinesscreat(element.merchantList, 3, icontypeform);
@@ -276,7 +276,7 @@ function getlevel2 (obj, dom) {
 						} else if (element.operationStatus  === 'd' ) {
 							color = '#FF0000'
 						}
-						str += '<li data-info=' + JSON.stringify({...element, type: 'bui'}) + ' class="flexLi"><img class="check" data-check="true" src="./img/checked.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
+						str += '<li data-info=' + JSON.stringify({...element, type: 'bui'}) + ' class="flexLi"><img class="check" data-check="true" src="./img/checked.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span><img class="dressTrue"  src="' + (element.latitude && element.longitude ? './img/dress.png' : '') + '" alt=""></li>'
 						if (element.latitude && element.longitude) {
 							layer = BM.marker([element.latitude,element.longitude],{icon:BM.icon({iconUrl: icon }), alt: JSON.stringify({...element, type: 'bui'}) }).addTo(map)
 							.on('click', function(e) { 
@@ -342,7 +342,7 @@ function getlevel3 (obj, dom) {
 					} else if (element.operationStatus  === 'd' ) {
 						color = '#FF0000'
 					}
-					str += '<li data-info=' + JSON.stringify({...element, type: 'bui'}) + ' class="flexLi"><img class="check" data-check="true" src="./img/checked.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
+					str += '<li data-info=' + JSON.stringify({...element, type: 'bui'}) + ' class="flexLi"><img class="check" data-check="true" src="./img/checked.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span><img class="dressTrue"  src="' + (element.latitude && element.longitude ? './img/dress.png' : '') + '" alt=""></li>'
 					if (element.latitude && element.longitude) {
 						layer = BM.marker([element.latitude,element.longitude],{icon:BM.icon({iconUrl: icon }), alt: JSON.stringify({...element, type: 'bui'}) }).addTo(map)
 						.on('click', function(e) { 
@@ -433,7 +433,7 @@ $('.seachQueqy').on('click', function () {
 				} else {
 					color = '#444'
 				}
-				str += '<li data-info=' + JSON.stringify({ id: element.id, name: element.name, latitude: element.latitude, longitude: element.longitude, type: 'bui' }) + ' class="besflexLi"><img class="check" data-check="true" src="./img/checked.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span></li>'
+				str += '<li data-info=' + JSON.stringify({ id: element.id, name: element.name, latitude: element.latitude, longitude: element.longitude, type: 'bui' }) + ' class="besflexLi"><img class="check" data-check="true" src="./img/checked.png" alt=""> <img class="iconImg" src="' + icon + '" alt=""><span class="buildingname" style="color:' + color + '">' + element.name + '</span><img class="dressTrue"  src="' + (element.latitude && element.longitude ? './img/dress.png' : '') + '" alt=""></li>'
 				str += '</li>';
 				if (element.latitude && element.longitude) {
 					layer = BM.marker([element.latitude,element.longitude],{icon:BM.icon({iconUrl: icon }), alt: JSON.stringify({...element, type: 'bui'}) }).addTo(map)
