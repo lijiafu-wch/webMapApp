@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-11-22 17:41:07
+ * @LastEditTime: 2020-11-22 19:10:02
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -297,7 +297,7 @@ $('.btn-wangdian').on('click', function () {
 
 // 设置左侧标题并显示
 function titleSet (text) {
-    if (text === '商户主体') {
+    if (text === '商户主体' || text === '吊/注销商户') {
         icon = './img/building_marker_normal.png'
     } else if (text === '便民商圈') {
         icon = './img/business_marker_normal.png'

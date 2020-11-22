@@ -7,11 +7,11 @@ function treecreat(params, type) {
 	}
 	params.forEach(element => {
 		if (type === false) {
-			str += '<li data-info=' + JSON.stringify({code: element.code, name: element.name, level: element.level}) + '><div>' +  element.name + '<i>(' + element.num + ')</i><span class="unfold">+</span></div>'
+			str += '<li data-info=' + JSON.stringify({code: element.code, name: element.name, level: element.level}) + '><div class="three"><img class="checkThree" data-check="true" src="./img/checked.png" alt="">' + element.name + '<i>(' + element.num + ')</i><span class="unfold">+</span></div>'
 		} else if (type === true && element.children.length === false) {
-			str += '<li data-info=' + JSON.stringify({code: element.code, name: element.name, level: element.level}) + '><div>' + element.name + '</div>'
+			str += '<li data-info=' + JSON.stringify({code: element.code, name: element.name, level: element.level}) + '><div class="first">' + element.name + '</div>'
 		} else {
-			str += '<li data-info=' + JSON.stringify({code: element.code, name: element.name, level: element.level}) + '><div>' + element.name + '<i>(' + element.num + ')</i> <span class="unfold">+</span></div>'
+			str += '<li data-info=' + JSON.stringify({code: element.code, name: element.name, level: element.level}) + '><div class="tow">' + element.name + '<i>(' + element.num + ')</i> <span class="unfold">+</span></div>'
 		}
 	if (element.children && element.children != '') {
 		str += treecreat(element.children, false);
@@ -21,6 +21,96 @@ function treecreat(params, type) {
 	str += '</ul>'
 	return str
 }
+
+// 街道点击取消标点
+$('.tree').on('click', '.checkThree', function () {
+	let dom = $(this)
+	if (dom.attr('data-check') === 'false') {
+		dom.attr('data-check', 'true')
+		dom.attr('src', './img/checked.png')
+		dom.parent().parent().find('ul').find('.checkThree').attr('data-check', 'true')
+		dom.parent().parent().find('ul').find('.checkThree').attr('src', './img/checked.png')
+		let lidomlist = dom.parent().parent().find('.flexLi')
+		if (lidomlist.length) {
+			let lidomlistlen = lidomlist.length
+			for (var i = 0; i < lidomlistlen; i++) {
+				// console.log($(lidomlist[i]).find('.check').attr('data-check'), !$(lidomlist[i]).find('.check').attr('data-check'));
+				if ($(lidomlist[i]).find('.check') && $(lidomlist[i]).find('.check').attr('data-check') === 'false') {
+					$(lidomlist[i]).find('.check').attr('data-check', 'true')
+					$(lidomlist[i]).find('.check').attr('src', './img/checked.png')
+					var str = $(lidomlist[i]).attr('data-info')
+					console.log(str);
+					if (str.indexOf('latitude') < 0) return
+					let obj = JSON.parse(str)
+					if (obj.type === 'bui') {
+						icon = './img/building_marker_normal.png'
+					} else if (obj.type === 'bus') {
+						icon = './img/business_marker_normal.png'
+					} else if (obj.type === 'wd') {
+						icon = './img/wangdianicon.png'
+					} else if (obj.type === 'ys') {
+						icon = './img/yunshuicon.png'
+					}
+					if (obj.latitude) {
+							var layers = BM.marker([obj.latitude,obj.longitude],{icon:BM.icon({iconUrl: icon }), alt: str }).addTo(map)
+							.on('click', function(e) { 
+								layerlist.forEach((element, i) => {
+									if (element._tooltip) {
+										element.unbindTooltip()
+									}
+								});
+				
+								if (obj.type === 'bus') {
+									console.log(e.target.options.alt);
+									getSqInfo(e.target.options.alt)
+								} else {
+									getShInfo(e.target.options.alt)
+								}
+								this.bindTooltip(obj.name || obj.roundName, {permanent: true, opacity: 1, direction: 'bottom'}).openTooltip();
+							})
+							// map.flyTo([obj.latitude, obj.longitude], 15);
+							if (map.getZoom() >= 15) {
+								map.flyTo([obj.latitude, obj.longitude], map.getZoom());
+							} else {
+								map.flyTo([obj.latitude, obj.longitude], 15);
+							}
+							layerlist.push(layers)
+					}
+				
+				}
+			}
+			
+			
+		}
+		
+	} else {
+		dom.attr('data-check', 'false')
+		dom.attr('src', './img/check.png')
+		dom.parent().parent().find('ul').find('.checkThree').attr('data-check', 'false')
+		dom.parent().parent().find('ul').find('.checkThree').attr('src', './img/check.png')
+		let lidomlist = dom.parent().parent().find('.flexLi')
+		if (lidomlist.length) {
+			let lidomlistlen = lidomlist.length
+			for (var i = 0; i < lidomlistlen; i++) {
+				if ($(lidomlist[i]).find('.check') && $(lidomlist[i]).find('.check').attr('data-check')) {
+					$(lidomlist[i]).find('.check').attr('data-check', 'false')
+					$(lidomlist[i]).find('.check').attr('src', './img/check.png')
+					var str = $(lidomlist[i]).attr('data-info')
+					layerlist.forEach((element, i) => {
+						if (element.getElement() && element.getElement().alt) {
+							if (str=== element.getElement().alt) {
+								element.remove()
+								layerlist.splice(i, 1);
+							}
+						}
+					});
+				}
+			}
+			
+			
+		}
+	}
+}) 
 function treebusinesscreat(params, type, icontypeform) {
 	console.log(icontypeform);
 	if (type === 1) {
@@ -239,7 +329,90 @@ $('.tree').on('click', '.check', function (e) {
 		});
 	}
 })
-
+$('.tree').on('click', '.four', function () {
+	let dom = $(this)
+	console.log(dom.attr('data-check'));
+	return
+	if (dom.attr('data-check') === 'false') {
+		dom.attr('data-check', 'true')
+		dom.attr('src', './img/checked.png')
+		let lidomlist = dom.parent().parent().find('.flexLi')
+		if (lidomlist.length) {
+			let lidomlistlen = lidomlist.length
+			for (var i = 0; i < lidomlistlen; i++) {
+				// console.log($(lidomlist[i]).find('.check').attr('data-check'), !$(lidomlist[i]).find('.check').attr('data-check'));
+				if ($(lidomlist[i]).find('.check') && $(lidomlist[i]).find('.check').attr('data-check') === 'false') {
+					$(lidomlist[i]).find('.check').attr('data-check', 'true')
+					$(lidomlist[i]).find('.check').attr('src', './img/checked.png')
+					var str = $(lidomlist[i]).attr('data-info')
+					console.log(str);
+					if (str.indexOf('latitude') < 0) return
+					let obj = JSON.parse(str)
+					if (obj.type === 'bui') {
+						icon = './img/building_marker_normal.png'
+					} else if (obj.type === 'bus') {
+						icon = './img/business_marker_normal.png'
+					} else if (obj.type === 'wd') {
+						icon = './img/wangdianicon.png'
+					} else if (obj.type === 'ys') {
+						icon = './img/yunshuicon.png'
+					}
+					if (obj.latitude) {
+							var layers = BM.marker([obj.latitude,obj.longitude],{icon:BM.icon({iconUrl: icon }), alt: str }).addTo(map)
+							.on('click', function(e) { 
+								layerlist.forEach((element, i) => {
+									if (element._tooltip) {
+										element.unbindTooltip()
+									}
+								});
+				
+								if (obj.type === 'bus') {
+									console.log(e.target.options.alt);
+									getSqInfo(e.target.options.alt)
+								} else {
+									getShInfo(e.target.options.alt)
+								}
+								this.bindTooltip(obj.name || obj.roundName, {permanent: true, opacity: 1, direction: 'bottom'}).openTooltip();
+							})
+							// map.flyTo([obj.latitude, obj.longitude], 15);
+							if (map.getZoom() >= 15) {
+								map.flyTo([obj.latitude, obj.longitude], map.getZoom());
+							} else {
+								map.flyTo([obj.latitude, obj.longitude], 15);
+							}
+							layerlist.push(layers)
+					}
+				
+				}
+			}
+		}
+	} else {
+		dom.attr('data-check', 'false')
+		dom.attr('src', './img/check.png')
+		let lidomlist = dom.parent().parent().find('.flexLi')
+		if (lidomlist.length) {
+			let lidomlistlen = lidomlist.length
+			for (var i = 0; i < lidomlistlen; i++) {
+				if ($(lidomlist[i]).find('.check') && $(lidomlist[i]).find('.check').attr('data-check')) {
+					$(lidomlist[i]).find('.check').attr('data-check', 'false')
+					$(lidomlist[i]).find('.check').attr('src', './img/check.png')
+					var str = $(lidomlist[i]).attr('data-info')
+					console.log(str);
+					layerlist.forEach((element, i) => {
+						if (element.getElement() && element.getElement().alt) {
+							if (str === element.getElement().alt) {
+								element.remove()
+								layerlist.splice(i, 1);
+							}
+						}
+					});
+				}
+			}
+			
+			
+		}
+	}
+})
 function getlevel2 (obj, dom) {
 	const data = { code: obj.code, operationType: operationType }
 	$.ajax({
@@ -261,7 +434,7 @@ function getlevel2 (obj, dom) {
 						if (element.address) {
 							element.address = null
 						}
-						str += '<li data-info=' + JSON.stringify(element) + '><div>' + element.name + '<i>(' + element.num + ')</i> <span class="unfold">+</span></div></li>'
+						str += '<li data-info=' + JSON.stringify(element) + '><div class="four"><img class="checkThree" data-check="true" src="./img/checked.png" alt="">' + element.name + '<i>(' + element.num + ')</i> <span class="unfold">+</span></div></li>'
 					} else {
 						if (element.address) {
 							element.address = null

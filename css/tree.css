@@ -72,7 +72,9 @@
     margin-right: 5px;
 } */
 
-
+.checkThree {
+    cursor: pointer;
+}
 
 .tree {
     width: 100%;
