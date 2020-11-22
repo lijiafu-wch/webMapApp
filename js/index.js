@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-11-22 19:10:02
+ * @LastEditTime: 2020-11-22 21:11:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -354,66 +354,22 @@ function getBusinessTree (data) {
         }
     }
 }
-$('.showInfoRight').on('click', '.buidImgBOX', function (e) {
-    if ($(this).attr('pic1') && $(this).attr('pic2')) {
-        const str = `<div id="carousel-example-generic" class="carousel slide pulspic" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-          <li data-target="#carousel-example-generic" data-slide-to="1"></li>
-        </ol>
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
-          <div class="item active">
-            <img src="${ $(this).attr('pic1') }" alt="...">
-          </div>
-          <div class="item">
-            <img src="${ $(this).attr('pic2') }" alt="...">
-          </div>
-        </div>
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-    </div>`
+
+$('.showInfoRight').on('click', '.buidImg1', function (e) {
+    const str = `<img style="width: 500px;" src="${ $(this).attr('src')  }" alt="...">`
     $('.picturePanel').html(str)
     $('.pictureBox').show(1)
-    } else if ($(this).attr('pic1') || $(this).attr('pic2')) {
-        const str = `<div id="carousel-example-generic" class="carousel slide pulspic" data-ride="carousel">
-        <!-- Indicators -->
-        <ol class="carousel-indicators">
-          <li data-target="#carousel-example-generic" data-slide-to="0" class="active"></li>
-        </ol>
-        <!-- Wrapper for slides -->
-        <div class="carousel-inner" role="listbox">
-          <div class="item active">
-            <img src="${ $(this).attr('pic1') || $(this).attr('pic2') }" alt="...">
-          </div>
-        </div>
-        <!-- Controls -->
-        <a class="left carousel-control" href="#carousel-example-generic" role="button" data-slide="prev">
-          <span class="glyphicon glyphicon-chevron-left" aria-hidden="true"></span>
-          <span class="sr-only">Previous</span>
-        </a>
-        <a class="right carousel-control" href="#carousel-example-generic" role="button" data-slide="next">
-          <span class="glyphicon glyphicon-chevron-right" aria-hidden="true"></span>
-          <span class="sr-only">Next</span>
-        </a>
-    </div>`
+})
+
+$('.showInfoRight').on('click', '.buidImg2', function (e) {
+    const str = `<img style="width: 500px;" src="${ $(this).attr('src')  }" alt="...">`
     $('.picturePanel').html(str)
     $('.pictureBox').show(1)
-    }
 })
 $('.businessshowInfoLeftimg').on('click', function (e) {
-    console.log(e);
-    const str = `<img style="width: 500px;" src="${ $(this).attr('pic')  }" alt="...">`
+    const str = `<img style="width: 500px;" src="${ $(this).attr('src')  }" alt="...">`
     $('.picturePanel').html(str)
     $('.pictureBox').show(1)
-
 })
 function getShInfo (val) {
     const obj = JSON.parse(val)
@@ -515,9 +471,9 @@ function getShInfo (val) {
                     <span class="new-detail-label">商标：</span>
                     <span class="new-detail-field" >${ certificateList(data.brandRegisterList)  }</span>
                 </div>
-                <div class="buidImgBOX" pic2="${ data.pictureTwo || '' }" pic1="${ data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }">
-                    <img class="buidImg"  src="${ data.pictureOne || 'http://49.232.203.212:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">
-                    <img class="buidImg"  src="${ data.pictureTwo || '' }" alt="">
+                <div class="buidImgBOX">
+                    <img class="buidImg buidImg1"  src="${ data.pictureOne || 'http://49.232.203.212:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">
+                    <img class="buidImg buidImg2"  src="${ data.pictureTwo || '' }" alt="">
                 </div>
                 <div class="jj">
                     <h3>企业简介</h3>
@@ -602,8 +558,8 @@ function getSqInfo (val) {
             if (result.code === 200) {
                $('#building').hide()
                 const data = result.data
-               $('.businessshowInfoLeftimg').attr('pic', data.picture || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png')
-                $('.businessshowInfoLeftimg').html(`<img class="businessshowInfoLeftimgsrc" src="${ data.picture || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">`)
+               $('.businessshowInfoLeftimg').attr('pic', data.picture || 'http://49.232.203.212:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png')
+                $('.businessshowInfoLeftimg').html(`<img class="businessshowInfoLeftimgsrc" src="${ data.picture || 'http://49.232.203.212:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">`)
                 $('.businesssshowInfoRight').html(`<div class="businessname">商圈名称： <span class="businessnametext">${ data.name || '' }</span> </div>
 						<div class="businessaddress">地址： <span>${ data.address || '' }</span></div>`)
                 $('.business1detail').html(data.detal || '暂无介绍')
