@@ -402,63 +402,107 @@ function getShInfo (val) {
                $('#building').show()
                
                $('.detail-content-title-text').text(obj.name)
-                let str = `
-                <div class="new-detail-head">
-                    <span class="new-detail-label">名称:</span>
-                    <span class="new-detail-field">${ data.name || '' }</span>
-                </div>
-                <div class="new-detail-head">
-                    <span class="new-detail-label">法人代表：</span>
-                    <span class="new-detail-field">${ data.legalPerson || '' }</span>
-                </div>
-                <div class="new-detail-head">
-                    <span class="new-detail-label">地址：</span>
-                    <span class="storeLink new-detail-field">${ data.address || '' }</span>
-                </div>
-                <div class="new-detail-head">
-                    <span class="new-detail-label">统一社会信用代码:</span>
-                    <span class="new-detail-field">${ data.creditCode || '' }</span>
-                </div>
-                <div class="new-detail-head">
-                    <span class="new-detail-label">联系电话：</span>
-                    <span class="new-detail-field">${ data.outPhone || ''  }</span>
-                </div>
-                <div class="new-detail-head">
-                    <span class="new-detail-label">成立日期：</span>
-                    <span class="new-detail-field">${ data.merchantDate || ''  }</span>
-                </div>
-                <div class="new-detail-head">
-                    <span class="new-detail-label">行业分类：</span>
-                    <span class="new-detail-field">${ data.firstBusinessCategoryName || ''  }</span>
-                </div>
-                <div class="new-detail-head">
-                    <span class="new-detail-label">二级分类：</span>
-                    <span class="new-detail-field">${ data.secondBusinessCategoryName || ''  }</span>
-                </div>
-                <div class="new-detail-head">
-                    <span class="new-detail-label">用工人数：</span>
-                    <span class="new-detail-field">${ data.workerNum || ''  }</span>
-                </div>
-                <div class="new-detail-head">
-                    <span class="new-detail-label">经营状态：</span>
-                    <span class="new-detail-field">${ data.operationStatusName || ''  }</span>
-                </div>
-                <div class="new-detail-head">
-                    <span class="new-detail-label">特殊状态：</span>
-                    <span class="new-detail-field">${ data.specialStatusName || ''  }</span>
-                </div>
-                <div class="new-detail-head">
-                    <span class="new-detail-label">执行标准编号:</span>
-                    <span class="new-detail-field">${ data.standardNo || ''  }</span>
-                </div>
-                <div class="new-detail-head">
-                    <span class="new-detail-label">企业产品名称:</span>
-                    <span class="new-detail-field">${ data.productName || ''  }</span>
-                </div>
-                <div class="new-detail-head">
-                    <span class="new-detail-label">经营范围：</span>
-                    <span class="new-detail-field">${ data.operationRange || ''  }</span>
-                </div>
+			   let str1 ;
+			   if(data.name	!= 'hide'){
+				   str1 += ` 
+					<div class="new-detail-head">
+						<span class="new-detail-label">名称:</span>
+						<span class="new-detail-field">${ data.name || '' }</span>
+					</div>`
+			   }
+			   if(data.legalPerson	!= 'hide'){
+				   str1 += ` 
+				<div class="new-detail-head">
+				    <span class="new-detail-label">法人代表：</span>
+				    <span class="new-detail-field">${ data.legalPerson || '' }</span>
+				</div>`
+			   }
+			  if(data.address	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">地址：</span>
+				     <span class="storeLink new-detail-field">${ data.address || '' }</span>
+				 </div>`
+				}
+			  if(data.creditCode	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">统一社会信用代码:</span>
+				     <span class="new-detail-field">${ data.creditCode || '' }</span>
+				 </div>`
+				}
+			  if(data.outPhone	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">联系电话：</span>
+				     <span class="new-detail-field">${ data.outPhone || ''  }</span>
+				 </div>`
+				}
+			  if(data.merchantDate	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">成立日期：</span>
+				     <span class="new-detail-field">${ data.merchantDate || ''  }</span>
+				 </div>`
+				}
+			  if(data.firstBusinessCategoryName	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">行业分类：</span>
+				     <span class="new-detail-field">${ data.firstBusinessCategoryName || ''  }</span>
+				 </div>`
+				}
+			  if(data.secondBusinessCategoryName	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">二级分类：</span>
+				     <span class="new-detail-field">${ data.secondBusinessCategoryName || ''  }</span>
+				 </div>`
+				}
+			  if(data.workerNum	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">用工人数：</span>
+				     <span class="new-detail-field">${ data.workerNum || ''  }</span>
+				 </div>`
+				}
+			  if(data.operationStatusName	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">经营状态：</span>
+				     <span class="new-detail-field">${ data.operationStatusName || ''  }</span>
+				 </div>`
+				}
+			  if(data.specialStatusName	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">特殊状态：</span>
+				     <span class="new-detail-field">${ data.specialStatusName || ''  }</span>
+				 </div>`
+				}
+			  if(data.standardNo	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">执行标准编号:</span>
+				     <span class="new-detail-field">${ data.standardNo || ''  }</span>
+				 </div>`
+				}
+			  if(data.productName	!= 'hide'){
+				 str1 += `
+				<div class="new-detail-head">
+				    <span class="new-detail-label">企业产品名称:</span>
+				    <span class="new-detail-field">${ data.productName || ''  }</span>
+				</div>`
+				}
+			  if(data.operationRange	!= 'hide'){
+				 str1 += `
+				<div class="new-detail-head">
+				    <span class="new-detail-label">经营范围：</span>
+				    <span class="new-detail-field">${ data.operationRange || ''  }</span>
+				</div>`
+				}
+			   
+                str1 += `
                 <div class="new-detail-head">
                     <span class="new-detail-label">证书：</span>
                     <span class="new-detail-field" >${ certificateList(data.certificateList)  }</span>
@@ -471,16 +515,24 @@ function getShInfo (val) {
                     <span class="new-detail-label">商标：</span>
                     <span class="new-detail-field" >${ certificateList(data.brandRegisterList)  }</span>
                 </div>
-                <div class="buidImgBOX">
-                    <img class="buidImg buidImg1"  src="${ data.pictureOne || 'http://49.232.203.212:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">
-                    <img class="buidImg buidImg2"  src="${ data.pictureTwo || '' }" alt="">
-                </div>
-                <div class="jj">
-                    <h3>企业简介</h3>
-                    <div>${ data.detail || '暂无简介'  }</div>
-                </div>
-                `
-                $('.showInfoRight').html(str)
+				`
+				 if(data.pictureOne	!= 'hide'){
+					str1 += `
+					<div class="buidImgBOX">
+						<img class="buidImg buidImg1"  src="${ data.pictureOne || 'http://www.qthscditu.com:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">
+						<img class="buidImg buidImg2"  src="${ data.pictureTwo || '' }" alt="">
+					</div>`
+				}
+				if(data.detail	!= 'hide'){
+					str1 += `
+					<div class="jj">
+						<h3>企业简介</h3>
+						<div>${ data.detail || '暂无简介'  }</div>
+					</div>
+					`
+				}
+				
+                $('.showInfoRight').html(str1)
 
                 // $('.buidImg').attr('pic1', data.pictureOne || 'http://47.110.155.20:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png')
                 // $('.buidImg').attr('pic2', data.pictureTwo)
