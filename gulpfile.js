@@ -21,10 +21,10 @@ gulp.task('connect',function(){
         middleware: function (connect, opt) {
           return [
             proxy("/front/", {
-        target: "http://49.232.203.212:81",
+        // target: "http://49.232.203.212:81",
         // target: "http://47.110.155.20:81",
         
-              // target: "http://127.0.0.1:81",
+              target: "http://127.0.0.1:81",
               changeOrigin: true,
               pathRewrite: {
                 // "server/": ""
