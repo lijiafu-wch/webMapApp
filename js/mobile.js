@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-12-14 21:52:45
+ * @LastEditTime: 2020-12-14 21:58:22
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -124,6 +124,7 @@ $('.screen_quxian').on('click', function () {
     picker.show(function (SelectedItem) {
         if (!SelectedItem.length) return
         $('.screen_quxian').val(SelectedItem[0].name + '/' + SelectedItem[1].name)
+        $('.screen_shequ').val(undefined)
         getlevel2_phone(SelectedItem[1])
     })
 })
