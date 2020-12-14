@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-11-22 21:11:36
+ * @LastEditTime: 2020-12-14 14:15:55
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -9,7 +9,13 @@
  * Bigemap 2.1.0+doc-translated.fa4f6f5, a JS library for interactive maps. http://bigemapjs.com
  * (c) 2018 BIGEMAP
  */
-
+if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+    window.location.href = "../mobile.html";
+    console.log(1);
+} else {
+    window.location.href = "../mobile.html";
+    
+}
     BM.Config.HTTP_URL = 'http://49.232.203.212:9000';
 	// 在ID为map的元素中实例化一个地图，不要设置地图ID，ID号程序自动生成，无需手动配置，并设置地图的投影为百度地图 ，中心点，默认的级别和显示级别控件
 	var map = BM.map('map', 'bigemap.googlemapen-satellite', {center: [ 45.7521,131.0256], zoom: 12, zoomControl: false, attributionControl: false});
@@ -631,7 +637,6 @@ function getSqInfo (val) {
 }
 
 
-console.log(map.getZoom());
 $('.grade').html(map.getZoom() + '级')
 $('.add').on('click', function () {
     map.zoomIn();

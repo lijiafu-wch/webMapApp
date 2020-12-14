@@ -1,0 +1,162 @@
+.nav_container {
+    position: fixed;
+    right: .1rem;
+    top: 10%;
+}
+.operation-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-bottom: .1rem;
+    padding: .03rem;
+    border-radius: .05rem;
+    font-size: .12rem;
+    color: #ffff;
+    cursor: pointer;
+}
+.operation_btn_active_b {
+    box-shadow: -1px -1px 4px #000;
+}
+.operation_btn_active_f {
+    box-shadow: -1px -1px 4px #fff;
+}
+
+.operation-btn .operation_img {
+    width: .2rem;
+    margin-bottom: .05rem;
+    object-fit: contain;
+}
+.btn-building {
+	background-color: #3ca2e0;
+}
+
+.btn-building1 {
+    background-color: #f0ad4e;
+}
+
+.btn-businessDistrict {
+	background-color: #5582f6;
+}
+.btn-wangdian {
+	background-color: #fb0808;
+}
+
+.btn-yunshu {
+	background-color: #00d607;
+}
+
+.toolcontent {
+    z-index: 2;
+    position: fixed;
+    width: .3rem;
+    height: .3rem;
+    line-height: .3rem;
+    right: .1rem;
+    bottom: 17%;
+    text-align: center;
+    /* background: url(../img/window.png) no-repeat;
+    background-size: contain; */
+    background-color: #fff;
+}
+
+.toolcontent img {
+    width: .25rem;
+    object-fit: contain;
+}
+
+.controlBox {
+	position: fixed;
+	right: .1rem;
+    bottom: 5%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	z-index: 2;
+}
+.add,
+.sub {
+	text-align: center;
+	height: .3rem;
+	line-height: .3rem;
+	width: .3rem;
+	cursor: pointer;
+	background: #fff;
+}
+.add {
+	border-bottom: 1px solid #eee;
+}
+/* .sub {
+	border-top: 1px solid #eee;
+} */
+
+.seachContent {
+    width: 100%;
+    position: fixed;
+    padding: .06rem .12rem;
+    top: 0;
+    left: 0;
+    z-index: 66;
+    background-color: rgba(238, 238, 238, 0.8);
+    box-shadow: 1px 1px 4px #eee;
+    display: none;
+}
+.seachinput {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.screen {
+    display: none;
+    margin-top: .06rem;
+}
+
+.screen_shequ {
+    display: none;
+}
+
+.screen,
+.seach_item {
+    width: 100%;
+}
+
+.screen input {
+    width: 100%;
+    border: none;
+    border-radius: .2rem;
+    padding: 0.05rem .1rem;
+    outline: none;
+    margin: 0;
+    height: auto;
+}
+
+.seachinput input {
+    width: 80%;
+    border: none;
+    border-radius: .2rem;
+    padding: 0.05rem .1rem;
+    outline: none;
+    margin: 0;
+    height: auto;
+}
+
+
+.more {
+    font-size: .12rem;
+}
+.more span {
+    font-size: .12rem;
+}
+
+.seach_shoping {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.seach_shoping input {
+    width: 48%;
+}

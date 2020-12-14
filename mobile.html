@@ -1,0 +1,174 @@
+<!--
+ * @Author: your name
+ * @Date: 2020-12-06 15:50:32
+ * @LastEditTime: 2020-12-14 21:55:18
+ * @LastEditors: Please set LastEditors
+ * @Description: In User Settings Edit
+ * @FilePath: /webMapApp/mobile.html
+-->
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset='UTF-8' />
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <link href="https://cdn.bootcdn.net/ajax/libs/mui/3.7.1/css/mui.min.css" rel="stylesheet">
+  <link href='http://49.232.203.212:9000/bigemap.js/v2.1.0/bigemap.css' rel='stylesheet' />
+  <link href="https://cdn.bootcss.com/Buttons/2.0.0/css/buttons.min.css" rel="stylesheet">
+  <link href="./css/mobile.css" rel="stylesheet">
+  <link href="./css/pick.css" rel="stylesheet">
+
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <script type="text/javascript" src='http://49.232.203.212:9000/bigemap.js/v2.1.0/bigemap.js'></script>
+  <script type="text/javascript" src="https://cdn.bootcss.com/jquery/3.4.1/jquery.min.js"></script>
+  <script type="text" src="https://cdn.jsdelivr.net/npm/bootstrap@3.3.7/dist/js/bootstrap.min.js"
+    integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa"
+    crossorigin="anonymous"></script>
+  <script type="text/javascript" src="./js/rem.js"></script>
+  <script src="https://cdn.bootcdn.net/ajax/libs/mui/3.7.1/js/mui.min.js"></script>
+
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+    }
+
+    #map {
+      position: absolute;
+      height: 100%;
+      top: 0;
+      bottom: 0;
+      width: 100%;
+    }
+
+    .tool {
+      position: absolute;
+      z-index: 1;
+      width: 1rem;
+      height: .3rem;
+      border-radius: 0.05rem;
+      /* left: -0.7rem;
+    top: -0.4rem; */
+      left: 1rem;
+      top: -.4rem;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #fff;
+      overflow: hidden;
+      transition: left 1s;
+    }
+
+    .tool span {
+      font-size: .12rem;
+      color: #444;
+      display: inline-block;
+      width: .5rem;
+      height: .3rem;
+      ;
+      line-height: .3rem;
+      text-align: center;
+    }
+
+    .tool .toolitemActive {
+      color: #fff;
+      background-color: #1890ff;
+      ;
+    }
+
+    #button {
+      float: right;
+    }
+
+    .my_tooltip {
+      color: red;
+      background: transparent;
+      border: none;
+      font-size: 18px;
+    }
+
+    .my_tooltip::before {
+      display: none;
+    }
+    .bigemap-tooltip-bottom:before {
+      margin-top: -10px;
+    }
+    .bigemap-tooltip-bottom {
+      margin-top: 38px;
+    margin-left: 12px;
+    }
+  </style>
+  <title>七台河市场主体地图展示系统</title>
+</head>
+
+<body>
+
+  <!--   右侧图层切换-->
+  <div class="toolcontent">
+    <img src="./img/window.png" alt="">
+    <p class="tool">
+      <span id="satellite" class="toolitem toolitem1 toolitemActive">卫星</span>
+      <span id="street" class="toolitem toolitem2">电子</span>
+    </p>
+  </div>
+  <div class="controlBox">
+    <div class="controlitem add">+</div>
+    <!-- <div class="controlitem grade"></div> -->
+    <div class="controlitem sub">-</div>
+  </div>
+  <div id='map'></div>
+  <!-- 头部搜索 -->
+  <div class="seachContent">
+    <div class="seachinput">
+      <input placeholder="请输入商家名称" type="text" class="seachValue">
+      <!-- <button>搜索</button> -->
+      <span class="more moredown">筛选更多<span class="mui-icon arrowdown mui-icon-arrowdown"></span></span>
+      <span class="more moreup">收起<span class="mui-icon arrowup mui-icon-arrowup"></span></span>
+    </div>
+    <div class="screen">
+      <!-- 正常营业的商家 -->
+      <div class="seach_item seach_shoping">
+        <input type="text" placeholder="请选择区县" readonly class="screen_quxian">
+        <input type="text" placeholder="请选择社区" readonly  class="screen_shequ">
+      </div>
+      <!-- 吊销的商家 -->
+      <div class="seach_item seach_shopend"></div>
+      <!-- 商圈 -->
+      <div class="seach_item seach_business"></div>
+      <!-- 运输户 -->
+      <div class="seach_item seach_yunshu"></div>
+      <!-- 网店 -->
+      <div class="seach_item seach_wangdian"></div>
+    </div>
+  </div>
+  <!--   左侧导航分类   -->
+  <div class="nav_container">
+    <div class="operation-btn btn-building" title="商户主体">
+      <img class="operation_img" src="./img/build.png">
+      <div>商户主体</div>
+    </div>
+    <div class="operation-btn  btn-building1" title="吊/注销商户">
+      <img class="operation_img" src="./img/build.png">
+      <div>吊/注销商户</div>
+    </div>
+    <div class="operation-btn btn-businessDistrict" title="便民商圈">
+      <img class="operation_img" src="./img/bag.png">
+      <div>便民商圈</div>
+    </div>
+    <div class="operation-btn btn-yunshu" title="运输户">
+      <img class="operation_img" src="./img/yunshu.png">
+      <div>运输户</div>
+    </div>
+    <div class="operation-btn btn-wangdian" title="网店">
+      <img class="operation_img" src="./img/wangdian.png">
+      <div>网&nbsp;&nbsp;&nbsp;&nbsp;店</div>
+    </div>
+  </div>
+  <script type="text/javascript" src="./js/pick.js"></script>
+  <script type="text/javascript" src="./js/sel.js"></script>
+  <script type="text/javascript" src="./js/mobile.js"></script>
+
+</body>
+
+</html>
