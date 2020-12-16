@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-06 15:50:32
- * @LastEditTime: 2020-12-14 21:55:18
+ * @LastEditTime: 2020-12-15 21:29:06
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMapApp/mobile.html
@@ -91,12 +91,14 @@
     .my_tooltip::before {
       display: none;
     }
+
     .bigemap-tooltip-bottom:before {
       margin-top: -10px;
     }
+
     .bigemap-tooltip-bottom {
       margin-top: 38px;
-    margin-left: 12px;
+      margin-left: 12px;
     }
   </style>
   <title>七台河市场主体地图展示系统</title>
@@ -130,7 +132,7 @@
       <!-- 正常营业的商家 -->
       <div class="seach_item seach_shoping">
         <input type="text" placeholder="请选择区县" readonly class="screen_quxian">
-        <input type="text" placeholder="请选择社区" readonly  class="screen_shequ">
+        <input type="text" placeholder="请选择社区" readonly class="screen_shequ">
       </div>
       <!-- 吊销的商家 -->
       <div class="seach_item seach_shopend"></div>
@@ -164,6 +166,19 @@
       <img class="operation_img" src="./img/wangdian.png">
       <div>网&nbsp;&nbsp;&nbsp;&nbsp;店</div>
     </div>
+  </div>
+ 
+  <div class="footInfoList">
+    <div class="footInfoListTitle">
+      <span class="mui-icon footInfoListTitlewdown mui-icon-arrowdown"></span>
+      <span class="mui-icon footInfoListTitleup mui-icon-arrowup"></span>
+    </div>
+    <ul>
+      <!-- <div class="lodding_info">加载中....</div> -->
+      <!-- <li class="InfoItem">
+        <span class="shopName">东辰商店</span><span class="addressName">东辰商店</span><span class="moreInfo mui-icon mui-icon-info"></span>
+      </li> -->
+    </ul>
   </div>
   <script type="text/javascript" src="./js/pick.js"></script>
   <script type="text/javascript" src="./js/sel.js"></script>

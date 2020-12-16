@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-12-14 21:58:22
+ * @LastEditTime: 2020-12-15 21:32:13
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -150,27 +150,27 @@ function getlevel2_phone(obj) {
                 result.data.forEach(element => {
                     // if (type === false) {
                     if (element.type === 1) {
-                        if (element.address) {
-                            element.address = null
-                        }
+                        // if (element.address) {
+                        //     element.address = element.address.trim()
+                        // }
                         element.text = element.name
                         element.value = element.code
                         SQLIST.push(element)
                     } else {
                         if (element.address) {
-                            element.address = null
+                            element.address = element.address.trim()
                         }
-                        let color
-                        if (element.operationStatus === 'a') {
-                            color = '#92D050'
-                        } else if (element.operationStatus === 'b') {
-                            color = '#9CC3E6'
-                        } else if (element.operationStatus === 'c') {
-                            color = '#FFC000'
-                        } else if (element.operationStatus === 'd') {
-                            color = '#FF0000'
-                        }
-                        SHLIST.push(SHLIST)
+                        // let color
+                        // if (element.operationStatus === 'a') {
+                        //     color = '#92D050'
+                        // } else if (element.operationStatus === 'b') {
+                        //     color = '#9CC3E6'
+                        // } else if (element.operationStatus === 'c') {
+                        //     color = '#FFC000'
+                        // } else if (element.operationStatus === 'd') {
+                        //     color = '#FF0000'
+                        // }
+                        SHLIST.push(element)
 
                         if (element.latitude && element.longitude) {
                             let layer = BM.marker([element.latitude, element.longitude], { icon: BM.icon({ iconUrl: icon }), alt: JSON.stringify({ ...element, type: 'bui' }) }).addTo(map)
@@ -194,6 +194,9 @@ function getlevel2_phone(obj) {
 
                     }
                 });
+                if (SHLIST && SHLIST.length) {
+                    footInfoList(SHLIST)
+                }
                 $('.screen_shequ').show()
 
             } else {
@@ -207,16 +210,21 @@ function getlevel2_phone(obj) {
         }
     });
 }
+
 // 选择社区
 $('.screen_shequ').on('click', function () {
     let picker = new mui.PopPicker();
     picker.setData(SQLIST)
     picker.pickers[0].setSelectedIndex(1);
     picker.show(function (SelectedItem) {
-        console.log(SelectedItem);
         if (!SelectedItem.length) return
         $('.screen_shequ').val(SelectedItem[0].name)
         getlevel3_phone(SelectedItem[0])
+        let str = ` <div class="lodding_info">加载中....</div>`
+        $('.footInfoList ul').html(str)
+        down.show()
+        up.hide()
+        screen.hide()
     })
 })
 
@@ -238,7 +246,7 @@ function getlevel3_phone(obj) {
                 result.data.forEach(element => {
                     let color
                     if (element.address) {
-                        element.address = null
+                        element.address = element.address.trim()
                     }
                     SHLIST.push(SHLIST)
                     // if (element.operationStatus  === 'a') {
@@ -258,9 +266,9 @@ function getlevel3_phone(obj) {
                                         element.unbindTooltip()
                                     }
                                 });
-                                
+
                                 // getShInfo(e.target.options.alt)
-                                this.bindTooltip(element.name || element.roundName, { permanent: true, opacity: 1, direction: 'bottom'}).openTooltip();
+                                this.bindTooltip(element.name || element.roundName, { permanent: true, opacity: 1, direction: 'bottom' }).openTooltip();
                             })
                         layerlist_phone.forEach((element, i) => {
                             if (element._tooltip) {
@@ -270,6 +278,7 @@ function getlevel3_phone(obj) {
                         layerlist_phone.push(layer)
                     }
                 });
+                footInfoList(result.data)
             } else {
                 mui.toast(result.msg || '未获取到信息，请稍后再试！', { duration: 'long', type: 'div' })
             }
@@ -281,6 +290,52 @@ function getlevel3_phone(obj) {
         }
     });
 }
+
+// 打开详细信息列表
+function footInfoList(info) {
+    if (info && info.length) {
+        let str = ''
+        info.forEach(element => {
+            console.log(element);
+            let color;
+            if (element.operationStatus === 'a') {
+                color = '#92D050'
+            } else if (element.operationStatus === 'b') {
+                color = '#9CC3E6'
+            } else if (element.operationStatus === 'c') {
+                color = '#FFC000'
+            } else if (element.operationStatus === 'd') {
+                color = '#FF0000'
+            }
+            str += `<li class="InfoItem">
+            <span class="shopName" style="color:${color}">${element.name}</span><span class="moreInfo mui-icon mui-icon-info"></span>
+          </li>`
+        });
+        $('.footInfoList ul').html(str)
+    } else {
+        let str = ` <div class="lodding_info">暂无内容</div>`
+        $('.footInfoList ul').html(str)
+    }
+    $('.footInfoList').css({
+        bottom: '0',
+    })
+}
+
+$('.footInfoListTitlewdown').on('click', function () {
+    $(this).hide()
+    $('.footInfoListTitleup').show()
+    $('.footInfoList').css({
+        bottom: '-55.5%',
+    })
+})
+
+$('.footInfoListTitleup').on('click', function () {
+    $(this).hide()
+    $('.footInfoListTitlewdown').show()
+    $('.footInfoList').css({
+        bottom: '0',
+    })
+})
 
 // 商户正常
 $('.btn-building').on('click', function () {
