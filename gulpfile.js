@@ -1,7 +1,7 @@
 /*
  * @Author: your name
  * @Date: 2020-01-04 21:50:26
- * @LastEditTime: 2020-12-14 20:28:21
+ * @LastEditTime: 2020-12-18 20:15:12
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /talkBox/gulpfile.js
@@ -16,7 +16,7 @@ gulp.task('connect',function(){
     connect.server({
         root:'.',//根目录
         // ip:'192.168.1.14',//默认localhost:8080
-        host: '192.168.1.40',
+        host: '192.168.1.27',
         livereload: true,//自动更新
         port: 5210,//端口
         middleware: function (connect, opt) {

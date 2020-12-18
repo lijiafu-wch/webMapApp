@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-12-15 21:32:13
+ * @LastEditTime: 2020-12-18 21:28:45
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -123,6 +123,8 @@ $('.screen_quxian').on('click', function () {
     picker.pickers[1].setSelectedIndex(1);
     picker.show(function (SelectedItem) {
         if (!SelectedItem.length) return
+        let str = `<div class="lodding_info"><img class="operation_img" src="./img/lodding.gif"></div>`
+        $('.footInfoList ul').html(str)
         $('.screen_quxian').val(SelectedItem[0].name + '/' + SelectedItem[1].name)
         $('.screen_shequ').val(undefined)
         getlevel2_phone(SelectedItem[1])
@@ -156,6 +158,9 @@ function getlevel2_phone(obj) {
                         element.text = element.name
                         element.value = element.code
                         SQLIST.push(element)
+                        footInfoList(undefined)
+                        // let str = ` <div class="lodding_info">暂无内容</div>`
+                        // $('.footInfoList ul').html(str)
                     } else {
                         if (element.address) {
                             element.address = element.address.trim()
@@ -180,8 +185,11 @@ function getlevel2_phone(obj) {
                                             element.unbindTooltip()
                                         }
                                     });
+                                    $('.footInfoContext').css({
+                                        bottom: '0',
+                                    })
                                     // 获取星系信息
-                                    // getShInfo(e.target.options.alt)
+                                    getShInfo(e.target.options.alt)
                                     this.bindTooltip(element.name || element.roundName, { permanent: true, opacity: 1, direction: 'bottom' }).openTooltip();
                                 })
                             layerlist_phone.forEach((element, i) => {
@@ -198,7 +206,6 @@ function getlevel2_phone(obj) {
                     footInfoList(SHLIST)
                 }
                 $('.screen_shequ').show()
-
             } else {
                 mui.toast(result.msg || '未获取到信息，请稍后再试！', { duration: 'long', type: 'div' })
             }
@@ -218,10 +225,10 @@ $('.screen_shequ').on('click', function () {
     picker.pickers[0].setSelectedIndex(1);
     picker.show(function (SelectedItem) {
         if (!SelectedItem.length) return
+        let str = `<div class="lodding_info"><img class="operation_img" src="./img/lodding.gif"></div>`
+        $('.footInfoList ul').html(str)
         $('.screen_shequ').val(SelectedItem[0].name)
         getlevel3_phone(SelectedItem[0])
-        let str = ` <div class="lodding_info">加载中....</div>`
-        $('.footInfoList ul').html(str)
         down.show()
         up.hide()
         screen.hide()
@@ -266,8 +273,10 @@ function getlevel3_phone(obj) {
                                         element.unbindTooltip()
                                     }
                                 });
-
-                                // getShInfo(e.target.options.alt)
+                                $('.footInfoContext').css({
+                                    bottom: '0',
+                                })
+                                getShInfo(e.target.options.alt)
                                 this.bindTooltip(element.name || element.roundName, { permanent: true, opacity: 1, direction: 'bottom' }).openTooltip();
                             })
                         layerlist_phone.forEach((element, i) => {
@@ -293,10 +302,11 @@ function getlevel3_phone(obj) {
 
 // 打开详细信息列表
 function footInfoList(info) {
+    $('.footInfoListTitlewdown').show()
+    $('.footInfoListTitleup').hide()
     if (info && info.length) {
         let str = ''
         info.forEach(element => {
-            console.log(element);
             let color;
             if (element.operationStatus === 'a') {
                 color = '#92D050'
@@ -308,7 +318,7 @@ function footInfoList(info) {
                 color = '#FF0000'
             }
             str += `<li class="InfoItem">
-            <span class="shopName" style="color:${color}">${element.name}</span><span class="moreInfo mui-icon mui-icon-info"></span>
+            <span class="shopName" style="color:${color}">${element.name}</span><span data-info='${ JSON.stringify(element) }' class="moreInfo mui-icon mui-icon-paperplane"></span>
           </li>`
         });
         $('.footInfoList ul').html(str)
@@ -319,6 +329,209 @@ function footInfoList(info) {
     $('.footInfoList').css({
         bottom: '0',
     })
+}
+
+$('.footInfoListBody').on('click', '.moreInfo', function () {
+    // console.log($(this).attr('data-info'))
+    $('.footInfoContext').css({
+        bottom: '0',
+    })
+    if (!$(this).attr('data-info')) return
+    let str = `<div class="lodding_info"><img class="operation_img" src="./img/lodding.gif"></div>`
+    $('.footInfoContextBody').html(str)
+    getShInfo($(this).attr('data-info'))
+})
+// 关闭商户信息
+$('.footInfoContextclose').on('click', function () {
+    $('.footInfoContext').css({
+        bottom: '-85%',
+    })
+    // getShInfo()
+})
+
+function getShInfo (val) {
+    const obj = JSON.parse(val)
+    if (obj.latitude) {
+        if (map.getZoom() >= 15) {
+            map.flyTo([obj.latitude, obj.longitude], map.getZoom());
+        } else {
+            map.flyTo([obj.latitude, obj.longitude], 15);
+        }
+    }
+    
+    
+    $.ajax({
+        //请求方式
+        type : "GET",
+        //请求的媒体类型
+        contentType: "application/json;charset=UTF-8",
+        //请求地址
+        url : "/front/merchant/" + obj.id,
+        //请求成功
+        success : function(result) {
+            if (result.code === 200) {
+               const data = result.data
+               $('.footInfoContextName').text(obj.name)
+			   let str1 = '';
+			   if(data.name	!= 'hide'){
+				   str1 += ` 
+					<div class="new-detail-head">
+						<span class="new-detail-label">名称:</span>
+						<span class="new-detail-field">${ data.name || '' }</span>
+					</div>`
+			   }
+			   if(data.legalPerson	!= 'hide'){
+				   str1 += ` 
+				<div class="new-detail-head">
+				    <span class="new-detail-label">法人代表:</span>
+				    <span class="new-detail-field">${ data.legalPerson || '' }</span>
+				</div>`
+			   }
+			  if(data.address	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">地址:</span>
+				     <span class="storeLink new-detail-field">${ data.address || '' }</span>
+				 </div>`
+				}
+			  if(data.creditCode	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">统一社会信用代码: </span>
+				     <span class="new-detail-field">${ data.creditCode || '' }</span>
+				 </div>`
+				}
+			  if(data.outPhone	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">联系电话:</span>
+				     <span class="new-detail-field">${ data.outPhone || ''  }</span>
+				 </div>`
+				}
+			  if(data.merchantDate	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">成立日期:</span>
+				     <span class="new-detail-field">${ data.merchantDate || ''  }</span>
+				 </div>`
+				}
+			  if(data.firstBusinessCategoryName	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">行业分类:</span>
+				     <span class="new-detail-field">${ data.firstBusinessCategoryName || ''  }</span>
+				 </div>`
+				}
+			  if(data.secondBusinessCategoryName	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">二级分类:</span>
+				     <span class="new-detail-field">${ data.secondBusinessCategoryName || ''  }</span>
+				 </div>`
+				}
+			  if(data.workerNum	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">用工人数:</span>
+				     <span class="new-detail-field">${ data.workerNum || ''  }</span>
+				 </div>`
+				}
+			  if(data.operationStatusName	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">经营状态:</span>
+				     <span class="new-detail-field">${ data.operationStatusName || ''  }</span>
+				 </div>`
+				}
+			  if(data.specialStatusName	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">特殊状态:</span>
+				     <span class="new-detail-field">${ data.specialStatusName || ''  }</span>
+				 </div>`
+				}
+			  if(data.standardNo	!= 'hide'){
+				 str1 += `
+				 <div class="new-detail-head">
+				     <span class="new-detail-label">执行标准编号:</span>
+				     <span class="new-detail-field">${ data.standardNo || ''  }</span>
+				 </div>`
+				}
+			  if(data.productName	!= 'hide'){
+				 str1 += `
+				<div class="new-detail-head">
+				    <span class="new-detail-label">企业产品名称:</span>
+				    <span class="new-detail-field">${ data.productName || ''  }</span>
+				</div>`
+				}
+			  if(data.operationRange	!= 'hide'){
+				 str1 += `
+				<div class="new-detail-head">
+				    <span class="new-detail-label">经营范围:</span>
+				    <span class="new-detail-field">${ data.operationRange || ''  }</span>
+				</div>`
+				}
+			   
+                str1 += `
+                <div class="new-detail-head">
+                    <span class="new-detail-label">证书:</span>
+                    <span class="new-detail-field" >${ certificateList(data.certificateList)  }</span>
+                </div>
+                <div class="new-detail-head">
+                    <span class="new-detail-label">计量器具:</span>
+                    <span class="new-detail-field" >${ certificateList(data.measureApplianceList)  }</span>
+                </div>
+                <div class="new-detail-head">
+                    <span class="new-detail-label">商标:</span>
+                    <span class="new-detail-field" >${ certificateList(data.brandRegisterList)  }</span>
+                </div>
+				`
+				 if(data.pictureOne	!= 'hide'){
+					str1 += `
+					<div class="buidImgBOX">
+						<img class="buidImg buidImg1"  src="${ data.pictureOne || 'http://www.qthscditu.com:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">
+						<img class="buidImg buidImg2"  src="${ data.pictureTwo || '' }" alt="">
+					</div>`
+				}
+				if(data.detail	!= 'hide'){
+					str1 += `
+					<div class="jj">
+						<h3>企业简介</h3>
+						<div>${ data.detail || '暂无简介'  }</div>
+					</div>
+					`
+				}
+                $('.footInfoContextBody').html(str1)
+            } else {
+                let str = ` <div class="lodding_info">暂无内容</div>`
+                $('.footInfoContextBody').html(str)
+            }
+            
+        },
+        //请求失败，包含具体的错误信息
+        error : function(e){
+            console.log(e.status);
+            console.log(e.responseText);
+        }
+    });
+}
+
+function certificateList (arr) {
+    // arr = [{name: '食品经营许可证'}, {name: '特种设备人员登记证'}, {name: '医疗器械经营许可证'}]
+    if (arr.length < 1) {
+        return ''
+    } else {
+        let str = ''
+        arr.forEach(element => { 
+            if (element.flag == true) {
+                str += '<div style="color: red">' + element.cerName + '</div>'
+            } else {
+                str += '<div>' + element.cerName + '</div>'
+            }
+        });
+        return str
+
+    }
 }
 
 $('.footInfoListTitlewdown').on('click', function () {
@@ -388,7 +601,6 @@ function building_phone(operationType) {
             if (result.code === 200) {
                 // console.log(result.data.root);
                 ADRESSLIST = result.data.root
-
             } else {
                 mui.toast(result.msg, { duration: 'long', type: 'div' })
             }

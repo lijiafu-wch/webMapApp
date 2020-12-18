@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-06 15:50:32
- * @LastEditTime: 2020-12-15 21:29:06
+ * @LastEditTime: 2020-12-18 20:53:36
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMapApp/mobile.html
@@ -11,7 +11,7 @@
 
 <head>
   <meta charset='UTF-8' />
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
   <link href="https://cdn.bootcdn.net/ajax/libs/mui/3.7.1/css/mui.min.css" rel="stylesheet">
   <link href='http://49.232.203.212:9000/bigemap.js/v2.1.0/bigemap.css' rel='stylesheet' />
   <link href="https://cdn.bootcss.com/Buttons/2.0.0/css/buttons.min.css" rel="stylesheet">
@@ -146,6 +146,8 @@
   </div>
   <!--   左侧导航分类   -->
   <div class="nav_container">
+    
+    
     <div class="operation-btn btn-building" title="商户主体">
       <img class="operation_img" src="./img/build.png">
       <div>商户主体</div>
@@ -167,13 +169,22 @@
       <div>网&nbsp;&nbsp;&nbsp;&nbsp;店</div>
     </div>
   </div>
- 
+
+  <div class="footInfoContext">
+    <div class="footInfoContextTitle">
+      <span class="footInfoContextName">商户名称</span>
+      <span class="footInfoContextclose mui-icon mui-icon-close"></span>
+    </div>
+    <ul class="footInfoContextBody">
+    </ul>
+  </div>
+
   <div class="footInfoList">
     <div class="footInfoListTitle">
       <span class="mui-icon footInfoListTitlewdown mui-icon-arrowdown"></span>
       <span class="mui-icon footInfoListTitleup mui-icon-arrowup"></span>
     </div>
-    <ul>
+    <ul class="footInfoListBody">
       <!-- <div class="lodding_info">加载中....</div> -->
       <!-- <li class="InfoItem">
         <span class="shopName">东辰商店</span><span class="addressName">东辰商店</span><span class="moreInfo mui-icon mui-icon-info"></span>

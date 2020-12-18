@@ -84,7 +84,7 @@ font-size: 10px;
 }
 .nav_container {
     position: fixed;
-    right: .1rem;
+    right: .05rem;
     top: 10%;
 }
 .operation-btn {
@@ -92,12 +92,15 @@ font-size: 10px;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    margin-bottom: .1rem;
+    /* margin-bottom: .05rem; */
     padding: .03rem;
     border-radius: .05rem;
     font-size: .12rem;
     color: #ffff;
     cursor: pointer;
+    transform: scale(1,1);
+    -ms-transform: scale(1,1); /* IE 9 */
+    -webkit-transform: scale(0.8,0.8); /* Safari and Chrome */
 }
 .operation_btn_active_b {
     box-shadow: -1px -1px 4px #000;
@@ -137,7 +140,7 @@ font-size: 10px;
     height: .3rem;
     line-height: .3rem;
     right: .1rem;
-    bottom: 17%;
+    bottom: 22%;
     text-align: center;
     /* background: url(../img/window.png) no-repeat;
     background-size: contain; */
@@ -152,7 +155,7 @@ font-size: 10px;
 .controlBox {
 	position: fixed;
 	right: .1rem;
-    bottom: 5%;
+    bottom: 10%;
 	display: flex;
 	flex-direction: column;
 	align-items: center;
@@ -245,6 +248,93 @@ font-size: 10px;
     width: 48%;
 }
 
+.footInfoContext {
+    position: fixed;
+    background-color: #fff;
+    width: 100%;
+    height: 85%;
+    bottom: -85%;
+    /* bottom: 0%; */
+    left: 0;
+    transition: bottom .5s;
+    border-top-left-radius: .1rem;
+    border-top-right-radius: .1rem;
+    overflow: hidden;
+    z-index: 3000;
+}
+.footInfoContextTitle {
+    padding: .05rem .1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: .2rem;
+    border-bottom: 1px solid #eee;
+}
+.footInfoContextBody {
+    overflow: auto;
+    padding: .1rem;
+    height: 100%;
+    padding-bottom: .4rem;
+}
+.bigemap-top, .bigemap-bottom {
+    z-index: 140!important;
+}
+.new-detail-head {
+    width: 100%;
+    display: flex;
+    align-items: center;
+    margin-bottom: .05rem;
+}
+.new-detail-label {
+    display: inline-block;
+    flex: 3;
+    font-size: .13rem;
+    text-align: right;
+    background: #f5f8fa;
+    color: #666666;
+}
+.new-detail-field {
+    display: inline-block;
+    flex: 6;
+    font-size: .13rem;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    padding-left: .1rem;
+}
+.jj {
+    border-top: 1px solid #eee;
+    margin-top: .12rem;
+    width: 100%;
+    padding: .12rem;
+}
+.jj h3 {
+    margin: 0;
+    margin-bottom: .12rem;
+}
+.footInfoContextName {
+    font-size: .15rem;
+    width: 80%;
+    overflow: hidden;
+    font-weight: 600;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+.buidImgBOX {
+    display: flex;
+    align-items: center;
+    padding: 0 .1rem;
+    cursor: pointer;
+    justify-content: space-between;
+}
+
+.buidImg {
+    width: 48.5%;
+    cursor: pointer;
+    object-fit: contain;
+    vertical-align: middle;
+}
+
 .footInfoList {
     position: fixed;
     background-color: #fff;
@@ -266,6 +356,9 @@ font-size: 10px;
     height: 100%;
     position: relative;
 }
+.footInfoContextBody {
+    position: relative;
+}
 
 .lodding_info {
     position: absolute;
@@ -285,7 +378,7 @@ font-size: 10px;
 }
 
 .InfoItem .moreInfo {
-    font-size: .18rem;
+    font-size: .20rem;
 }
 
 .footInfoListTitleup {
@@ -295,6 +388,7 @@ font-size: 10px;
 .InfoItem {
     display: flex;
     align-items: center;
+    margin-bottom: .1rem;
 }
 
 .shopName {
@@ -306,7 +400,7 @@ font-size: 10px;
 
 .shopName, 
 .addressName {
-    font-size: .12rem;
+    font-size: .16rem;
     overflow: hidden;
     text-overflow: ellipsis;
     white-space: nowrap;
