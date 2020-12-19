@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-06 15:50:32
- * @LastEditTime: 2020-12-18 20:53:36
+ * @LastEditTime: 2020-12-19 22:41:42
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMapApp/mobile.html
@@ -119,6 +119,14 @@
     <!-- <div class="controlitem grade"></div> -->
     <div class="controlitem sub">-</div>
   </div>
+  <div class="pictureBox">
+    <div class="pictureContent">
+      <div class="picturePanel">
+        
+      </div>
+    </div>
+    <!-- <span class="glyphicon glyphicon-remove-circle" onclick="$('.pictureBox').hide()" aria-hidden="true"></span> -->
+  </div>
   <div id='map'></div>
   <!-- 头部搜索 -->
   <div class="seachContent">
@@ -131,23 +139,31 @@
     <div class="screen">
       <!-- 正常营业的商家 -->
       <div class="seach_item seach_shoping">
-        <input type="text" placeholder="请选择区县" readonly class="screen_quxian">
+        <input type="text" placeholder="请选择区县" readonly class="screen_quxian screen_quxian_shop">
         <input type="text" placeholder="请选择社区" readonly class="screen_shequ">
       </div>
       <!-- 吊销的商家 -->
-      <div class="seach_item seach_shopend"></div>
+      <div class="seach_item seach_shopend">
+        <input type="text" placeholder="请选择区县" readonly class="screen_quxian screen_quxian_shop">
+        <input type="text" placeholder="请选择社区" readonly class="screen_shequ">
+      </div>
       <!-- 商圈 -->
-      <div class="seach_item seach_business"></div>
+      <div class="seach_item seach_business">
+        <input type="text" placeholder="请选择商圈" readonly class="screen_quxian screen_quxian_business">
+        <!-- <input type="text" placeholder="请选择商圈" readonly class="seach_businessitem"> -->
+      </div>
       <!-- 运输户 -->
-      <div class="seach_item seach_yunshu"></div>
+      <div class="seach_item seach_yunshu">
+        <input type="text" placeholder="请选择区" readonly class="screen_quxian screen_quxian_yunshu">
+      </div>
       <!-- 网店 -->
-      <div class="seach_item seach_wangdian"></div>
+      <div class="seach_item seach_wangdian">
+        <input type="text" placeholder="请选择区" readonly class="screen_quxian screen_quxian_wangdian">
+      </div>
     </div>
   </div>
   <!--   左侧导航分类   -->
   <div class="nav_container">
-    
-    
     <div class="operation-btn btn-building" title="商户主体">
       <img class="operation_img" src="./img/build.png">
       <div>商户主体</div>
@@ -181,8 +197,29 @@
 
   <div class="footInfoList">
     <div class="footInfoListTitle">
-      <span class="mui-icon footInfoListTitlewdown mui-icon-arrowdown"></span>
-      <span class="mui-icon footInfoListTitleup mui-icon-arrowup"></span>
+      <div>
+        <span class="mui-icon footInfoListTitlewdown mui-icon-arrowdown"></span>
+        <span class="mui-icon footInfoListTitleup mui-icon-arrowup"></span>
+      </div>
+
+      <div class="colorContent">
+        <!-- <div class="colorItem">
+          <span class="colorBox colorBox1"></span>
+          <span class="colorName">正常营业</span>
+        </div>
+        <div class="colorItem">
+          <span class="colorBox colorBox2"></span>
+          <span class="colorName">无经营场所营业</span>
+        </div>
+        <div class="colorItem">
+          <span class="colorBox colorBox3"></span>
+          <span class="colorName">歇业</span>
+        </div>
+        <div class="colorItem">
+          <span class="colorBox colorBox4"></span>
+          <span class="colorName">吊销</span>
+        </div> -->
+      </div>
     </div>
     <ul class="footInfoListBody">
       <!-- <div class="lodding_info">加载中....</div> -->
