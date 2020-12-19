@@ -1,7 +1,7 @@
 <!--
  * @Author: your name
  * @Date: 2020-12-06 15:50:32
- * @LastEditTime: 2020-12-19 22:41:42
+ * @LastEditTime: 2020-12-19 22:50:47
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMapApp/mobile.html
@@ -228,6 +228,12 @@
       </li> -->
     </ul>
   </div>
+  <script>
+if(!/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
+  window.location.href = "../index.html";
+
+}
+  </script>
   <script type="text/javascript" src="./js/pick.js"></script>
   <script type="text/javascript" src="./js/sel.js"></script>
   <script type="text/javascript" src="./js/mobile.js"></script>

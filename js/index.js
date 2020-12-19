@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-12-19 15:26:27
+ * @LastEditTime: 2020-12-19 22:50:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -11,10 +11,6 @@
  */
 if(/Android|webOS|iPhone|iPod|BlackBerry/i.test(navigator.userAgent)) {
     window.location.href = "../mobile.html";
-    console.log(1);
-} else {
-    window.location.href = "../mobile.html";
-    
 }
     BM.Config.HTTP_URL = 'http://49.232.203.212:9000';
 	// 在ID为map的元素中实例化一个地图，不要设置地图ID，ID号程序自动生成，无需手动配置，并设置地图的投影为百度地图 ，中心点，默认的级别和显示级别控件
