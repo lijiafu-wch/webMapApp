@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-12-19 22:43:47
+ * @LastEditTime: 2020-12-20 18:41:10
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -23,6 +23,8 @@ var google_satellite = BM.tileLayer('bigemap.googlemap-satellite');
 google_satellite.addTo(map);
 var google_street = BM.tileLayer('bigemap.googlemap-streets');
 $('#satellite').on('click', function () {
+    $('.nav_container').css('background-color', 'rgba(255, 255, 255, .6)')
+
     google_satellite.addTo(map);
     google_street.remove(map);
     $(this).addClass("toolitemActive")
@@ -38,6 +40,7 @@ $('#satellite').on('click', function () {
 })
 
 $('#street').on('click', function () {
+    $('.nav_container').css('background-color', 'rgba(0, 0, 0, .6)')
     $(this).addClass("toolitemActive")
     $('#satellite').removeClass("toolitemActive")
     TOOLCOLOR = 1
@@ -72,6 +75,7 @@ $('.sub').on('click', function () {
 
 // ------------点击图标功能-------------------
 function shadowChange(ele) {
+    $('.loddingContent').show()
     const title = ele.attr('title')
     if ($('.seachContent').css('display') == 'block') {
         if ($('.seachContent').attr('title') === title) return
@@ -188,11 +192,11 @@ function ADRESSLISTCHECK_SQ() {
         if (key.businessRounds) {
             arr1 = []
             key.businessRounds.forEach(ele => {
-                arr1.push({value: ele.roundId, name: ele.roundName, text: ele.roundName + `(${ele.num})`})
+                arr1.push({ value: ele.roundId, name: ele.roundName, text: ele.roundName + `(${ele.num})` })
             });
         }
-        arr.push({value: key.countyCode, name: key.name, text: key.name + `(${key.num})`, children: arr1 })
-        
+        arr.push({ value: key.countyCode, name: key.name, text: key.name + `(${key.num})`, children: arr1 })
+
     })
     console.log(arr);
     return arr
@@ -367,7 +371,7 @@ $('.screen_quxian_business').on('click', function () {
 
     })
 })
-function businessRounds_list_set (val) {
+function businessRounds_list_set(val) {
     // console.log(val);
     let data = [];
     ADRESSLIST.forEach(element => {
@@ -409,7 +413,7 @@ function businessRounds_list_set (val) {
         }
     });
     footInfoList(SHLIST)
-    
+
 }
 
 $('.screen_quxian_yunshu').on('click', function () {
@@ -721,7 +725,7 @@ $('.footInfoContextclose').on('click', function () {
     // getShInfo()
 })
 // 获取商圈明细
-function getSqInfo (val) {
+function getSqInfo(val) {
     const obj = JSON.parse(val)
     if (map.getZoom() >= 15) {
         map.flyTo([obj.latitude, obj.longitude], map.getZoom());
@@ -730,15 +734,15 @@ function getSqInfo (val) {
     }
     $.ajax({
         //请求方式
-        type : "GET",
+        type: "GET",
         //请求的媒体类型
         contentType: "application/json;charset=UTF-8",
         //请求地址
-        url : "/front/round/" + obj.roundId || obj.id,
+        url: "/front/round/" + obj.roundId || obj.id,
         //数据，json字符串
         // data : JSON.stringify(list),
         //请求成功
-        success : function(result) {
+        success: function (result) {
             if (result.code === 200) {
                 const data = result.data
                 let str1 = '';
@@ -767,7 +771,7 @@ function getSqInfo (val) {
             }
         },
         //请求失败，包含具体的错误信息
-        error : function(e){
+        error: function (e) {
             console.log(e.status);
             console.log(e.responseText);
         }
@@ -940,16 +944,40 @@ function getShInfo(val) {
 }
 
 $('.footInfoContextBody').on('click', '.buidImg', function (e) {
-    const str = `<img class="bigPic" style="width: 4rem;" src="${ $(this).attr('src')  }" alt="...">`
-    $('.picturePanel').html(str)
+    // const str = `<img class="bigPic" draggable="true"  src="${$(this).attr('src')}" alt="...">`
+    $('.bigPic').attr('src', $(this).attr('src'))
+    // $('.picturePanel').html(str)
     $('.pictureBox').show(1)
 })
+
+// var startleft = 0;
+// var starttop = 0;
+
+// $('.bigPic').draggable({
+//     start: function () {
+//         //为两个变量设置被拖动图片的初始坐标
+//         startleft = $(this).offset().left;
+//         starttop = $(this).offset().top;
+//     },
+//     stop: function () {
+//         if ($(this).offset().left > $('.picturePanel').offset().left + $('.picturePanel').width() || $(this).offset().top > $('.picturePanel').offset().top + $('.picturePanel').height()) {
+//             $('.pictureBox').hide()
+//         }
+//         else {
+//             //复位
+//             $(this).offset({
+//                 left: startleft,
+//                 top: starttop
+//             })
+//         }
+//     }
+// })
 $('.pictureBox').on('click', '.bigPic', function (e) {
     $('.pictureBox').hide()
 })
 
 $('.footInfoContextBody').on('click', '.new-detail-field', function () {
-    $(this).css({'white-space': 'initial', 'overflow': 'initial', 'text-overflow': 'initial' })
+    $(this).css({ 'white-space': 'initial', 'overflow': 'initial', 'text-overflow': 'initial' })
 })
 
 function certificateList(arr) {
@@ -1064,7 +1092,7 @@ function btnStatus() {
 
 // 商户正常
 $('.btn-building').on('click', function () {
-    // shadowChange($(this))
+    shadowChange($(this))
     operationType = 1
     building_phone(1, $(this))
     btnStatus()
@@ -1072,14 +1100,14 @@ $('.btn-building').on('click', function () {
 
 // 商户吊销
 $('.btn-building1').on('click', function () {
-    // shadowChange($(this))
+    shadowChange($(this))
     operationType = 2
     btnStatus()
     building_phone(2, $(this))
 })
 // 商圈
 $('.btn-businessDistrict').on('click', function () {
-    // shadowChange($(this))
+    shadowChange($(this))
     businessDistrict_phone($(this))
     operationType = 3
     btnStatus()
@@ -1088,15 +1116,15 @@ $('.btn-businessDistrict').on('click', function () {
 // 运输户
 $('.btn-yunshu').on('click', function () {
     operationType = 4
-    // shadowChange($(this))
+    shadowChange($(this))
     yunshuDistrict_phone($(this))
     btnStatus()
 })
 // 网店
 $('.btn-wangdian').on('click', function () {
     operationType = 5
-    // shadowChange($(this))
-    wangdianDistrict_phone()
+    shadowChange($(this))
+    wangdianDistrict_phone($(this))
     btnStatus()
 })
 
@@ -1121,13 +1149,16 @@ function building_phone(operationType, ele) {
             if (result.code === 200) {
                 // console.log(result.data.root);
                 ADRESSLIST = result.data.root
-                shadowChange(ele)
+                $('.loddingContent').hide()
+                // shadowChange(ele)
             } else {
+                $('.loddingContent').hide()
                 mui.toast(result.msg, { duration: 'long', type: 'div' })
             }
         },
         //请求失败，包含具体的错误信息
         error: function (e) {
+            $('.loddingContent').hide()
             console.log(e.status);
             console.log(e.responseText);
         }
@@ -1153,8 +1184,10 @@ function businessDistrict_phone(ele) {
         success: function (result) {
             if (result.code === 200) {
                 ADRESSLIST = result.data
-                shadowChange(ele)
+                // shadowChange(ele)
+                $('.loddingContent').hide()
             } else {
+                $('.loddingContent').hide()
                 mui.toast(result.msg, { duration: 'long', type: 'div' })
             }
         },
@@ -1184,9 +1217,13 @@ function yunshuDistrict_phone(ele) {
         //请求成功
         success: function (result) {
             if (result.code === 200) {
+                $('.loddingContent').hide()
+
                 ADRESSLIST = result.data
-                shadowChange(ele)
+                // shadowChange(ele)
             } else {
+                $('.loddingContent').hide()
+
                 mui.toast(result.msg, { duration: 'long', type: 'div' })
             }
         },
@@ -1216,9 +1253,13 @@ function wangdianDistrict_phone(ele) {
         //请求成功
         success: function (result) {
             if (result.code === 200) {
+                $('.loddingContent').hide()
+
                 ADRESSLIST = result.data
-                shadowChange(ele)
+                // shadowChange(ele)
             } else {
+                $('.loddingContent').hide()
+
                 mui.toast(result.msg, { duration: 'long', type: 'div' })
             }
         },

@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-12-19 22:50:28
+ * @LastEditTime: 2020-12-19 22:57:28
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -521,7 +521,7 @@ function getShInfo (val) {
 				 if(data.pictureOne	!= 'hide'){
 					str1 += `
 					<div class="buidImgBOX">
-						<img class="buidImg buidImg1"  src="${ data.pictureOne || 'http://www.qthscditu.com:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">
+						<img class="buidImg buidImg1"  src="${ data.pictureOne || '../images/nopic.png' }" alt="">
 						<img class="buidImg buidImg2"  src="${ data.pictureTwo || '' }" alt="">
 					</div>`
 				}
@@ -612,8 +612,8 @@ function getSqInfo (val) {
             if (result.code === 200) {
                $('#building').hide()
                 const data = result.data
-               $('.businessshowInfoLeftimg').attr('pic', data.picture || 'http://49.232.203.212:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png')
-                $('.businessshowInfoLeftimg').html(`<img class="businessshowInfoLeftimgsrc" src="${ data.picture || 'http://49.232.203.212:81/profile/upload/2020/10/14/5286928a05ee4b9482a8275f28f31745.png' }" alt="">`)
+               $('.businessshowInfoLeftimg').attr('pic', data.picture || '../images/nopic.png')
+                $('.businessshowInfoLeftimg').html(`<img class="businessshowInfoLeftimgsrc" src="${ data.picture || '../images/nopic.png' }" alt="">`)
                 $('.businesssshowInfoRight').html(`<div class="businessname">商圈名称： <span class="businessnametext">${ data.name || '' }</span> </div>
 						<div class="businessaddress">地址： <span>${ data.address || '' }</span></div>`)
                 $('.business1detail').html(data.detal || '暂无介绍')

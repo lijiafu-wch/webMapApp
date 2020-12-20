@@ -276,6 +276,8 @@ body {
     position: fixed;
     right: .05rem;
     top: 10%;
+    border-radius: .03rem;
+    background-color:rgba(0, 0, 0, .6);
 }
 
 .operation-btn {
@@ -297,11 +299,13 @@ body {
 }
 
 .operation_btn_active_b {
-    box-shadow: -1px -1px 4px #000;
+    border: .01rem solid #fff;
+    /* box-shadow: -1px -1px 4px #000; */
 }
 
 .operation_btn_active_f {
-    box-shadow: -1px -1px 4px #fff;
+    border: .01rem solid #fff;
+    /* box-shadow: -1px -1px 4px #fff; */
 }
 
 .operation-btn .operation_img {
@@ -702,7 +706,16 @@ body {
 	top: 50%;
 	left: 50%;
 	transform: translate(-50%, -50%);
-	/* width: 340px; */
+    /* width: 340px; */
+    height: 60%;
+    width: 100%;
+}
+.bigPic {
+    width: 4rem;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 .pictureShow {
 	width: 100%;
@@ -720,4 +733,25 @@ body {
 	width: 100%;
 	height: 100%;
 	position: relative;
+}
+
+.loddingContent {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 5000;
+    background-color: #000000a9;
+    transition: all 1s;
+    display: none;
+}
+
+.loddingmsg {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    color: #fff;
+    font-size: .14rem;
 }
