@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-12-22 16:41:33
+ * @LastEditTime: 2020-12-22 16:48:44
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -702,6 +702,12 @@ function footInfoList(info) {
 
 
 $('.footInfoList').on('click', '.shopName', function () {
+    // shopName_active
+    if (!$(this).hasClass('shopName_active')) {
+        $('.shopName').removeClass('shopName_active')
+        $(this).addClass('shopName_active')
+    }
+    
     if (!$(this).attr('data-info')) return
     let icon
     let str = $(this).attr('data-info')

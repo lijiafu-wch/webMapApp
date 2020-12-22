@@ -333,6 +333,10 @@ body {
 .btn-yunshu {
     background-color: #00d607;
 }
+.shopName_active {
+    background-color: #eee;
+    border-radius: .05rem;
+}
 
 .toolcontent {
     z-index: 2;
