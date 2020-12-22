@@ -1,7 +1,7 @@
 /*
  * @Author: wxp
  * @Date: 2020-10-11 10:33:32
- * @LastEditTime: 2020-12-20 18:41:10
+ * @LastEditTime: 2020-12-22 16:41:33
  * @LastEditors: Please set LastEditors
  * @Description: In User Settings Edit
  * @FilePath: /webMap/js/index.js
@@ -284,10 +284,10 @@ $(".seachValue").change(function () {
                         color = '#FF0000'
                     }
                     strs += `<li class="InfoItem">
-                <span class="shopName" style="color:${color}">${element.name}</span><img class="iconTpye moreInfo" data-info='${JSON.stringify(element)}' src="${icon}" alt="">
+                <span class="shopName" data-info='${JSON.stringify(element)}'  style="color:${color}">${element.name}</span><img class="iconTpye moreInfo" data-info='${JSON.stringify(element)}' src="${icon}" alt="">
               </li>`
                     if (element.latitude && element.longitude) {
-                        layer = BM.marker([element.latitude, element.longitude], { icon: BM.icon({ iconUrl: icon }), alt: JSON.stringify({ ...element, type: 'bui' }) }).addTo(map)
+                        let layer = BM.marker([element.latitude, element.longitude], { icon: BM.icon({ iconUrl: icon }), alt: JSON.stringify({ ...element, type: 'bui' }) }).addTo(map)
                             .on('click', function (e) {
                                 layerlist_phone.forEach((element, i) => {
                                     if (element._tooltip) {
@@ -328,7 +328,6 @@ $('.screen_quxian_shop').on('click', function () {
         layer: 2
     });
     picker.setData(data)
-    console.log('222', active_sele, active_sele_1);
     active_sele ? picker.pickers[0].setSelectedValue(active_sele) : picker.pickers[0].setSelectedIndex(1)
     setTimeout(function () {
         active_sele_1 ? picker.pickers[1].setSelectedValue(active_sele_1) : picker.pickers[1].setSelectedIndex(1)
@@ -688,7 +687,7 @@ function footInfoList(info) {
                 color = '#444'
             }
             str += `<li class="InfoItem">
-            <span class="shopName" style="color:${color}">${element.name}</span><img class="iconTpye moreInfo" data-info='${JSON.stringify(element)}' src="${element.type === 'bus' ? './img/business_marker_normal.png' : icon}" alt="">
+            <span class="shopName" data-info='${JSON.stringify(element)}' style="color:${color}">${element.name}</span><img class="iconTpye moreInfo" data-info='${JSON.stringify(element)}' src="${element.type === 'bus' ? './img/business_marker_normal.png' : icon}" alt="">
           </li>`
         });
         $('.footInfoList ul').html(str)
@@ -700,6 +699,58 @@ function footInfoList(info) {
         bottom: '0',
     })
 }
+
+
+$('.footInfoList').on('click', '.shopName', function () {
+    if (!$(this).attr('data-info')) return
+    let icon
+    let str = $(this).attr('data-info')
+    let obj = JSON.parse(str)
+    if (obj.type === 'bus') {
+        icon = './img/business_marker_normal.png'
+    } else {
+        icon = './img/building_marker_normal.png'
+    } 
+    if (obj.latitude) {
+        layerlist_phone.forEach((element, i) => {
+            if (element._tooltip) {
+                element.unbindTooltip()
+            }
+        });
+        let layer = BM.marker([obj.latitude, obj.longitude], { icon: BM.icon({ iconUrl: icon }), alt: str }).addTo(map)
+            .on('click', function (e) {
+                if (obj.type === 'bus') {
+                    getSqInfo(e.target.options.alt)
+                } else {
+                    getShInfo(e.target.options.alt)
+                }
+               
+                layerlist_phone.forEach((element, i) => {
+                    if (element._tooltip) {
+                        element.unbindTooltip()
+                    }
+                });
+                this.bindTooltip(obj.name || obj.roundName, { permanent: true, opacity: 1, direction: 'bottom' }).openTooltip();
+                $('.footInfoContext').css({
+                    bottom: '0',
+                })
+            })
+        layer.bindTooltip(obj.name || obj.roundName, { permanent: false, opacity: 1, direction: 'bottom' }).openTooltip();
+        if (map.getZoom() >= 15) {
+            map.flyTo([obj.latitude, obj.longitude], map.getZoom());
+        } else {
+            map.flyTo([obj.latitude, obj.longitude], 15);
+        }
+        layerlist_phone.push(layer)
+        $('.footInfoList').css({
+            bottom: '-42%',
+        })
+        $('.footInfoListTitlewdown').hide()
+        $('.footInfoListTitleup').show()
+    } else {
+        mui.toast('无法获取详细地址', { duration: 'long', type: 'div' })
+    }
+})
 
 $('.footInfoListBody').on('click', '.moreInfo', function () {
     // console.log($(this).attr('data-info'))
