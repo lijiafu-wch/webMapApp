@@ -404,9 +404,9 @@ function getShInfo (val) {
                $('#building').show()
                
                $('.detail-content-title-text').text(obj.name)
-			   let str1 ;
+			   let str1 ='';
 			   if(data.name	!= 'hide'){
-				   str1 += ` 
+				   str1 += `
 					<div class="new-detail-head">
 						<span class="new-detail-label">名称:</span>
 						<span class="new-detail-field">${ data.name || '' }</span>
@@ -419,6 +419,25 @@ function getShInfo (val) {
 				    <span class="new-detail-field">${ data.legalPerson || '' }</span>
 				</div>`
 			   }
+			   if(data.countyName	!= 'hide'){
+					 str1 += `
+					 <div class="new-detail-head">
+						 <span class="new-detail-label">区域：</span>
+						 <span class="storeLink new-detail-field">${ data.countyName || '' }`
+					 
+					 if(data.streetName	!= 'hide'){
+						str1 += `
+						- ${ data.streetName || '' }`
+						if(data.communityName	!= 'hide'){
+							str1 += `
+							- ${ data.communityName || '' }`
+						}
+					 }
+					 
+					 str1 += `</span></div>`
+			   	}
+			   
+			   
 			  if(data.address	!= 'hide'){
 				 str1 += `
 				 <div class="new-detail-head">
